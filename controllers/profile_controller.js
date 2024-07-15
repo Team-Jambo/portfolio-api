@@ -1,0 +1,119 @@
+import { userProfileModel } from "../models/userprofile_model.js";
+import { userModel } from "../models/user_model.js";
+import { profileSchema } from "../schema/profile_schema.js";
+
+
+// Create user profile
+export const addUserProfile = async (req, res) => {
+    try {
+      const { error, value } = profileSchema.validate(req.body);
+      if (error) {
+        return res.status(400).send(error.details[0].message);
+      }
+  
+      // Finding the user by ID
+      const userId = value.user; 
+      const user = await userModel.findById(userId);
+      if (!user) {
+        return res.status(404).send('User not found');
+      }
+  
+      // Create or update the user profile
+      let userProfile = await userProfileModel.findOneAndUpdate(
+        { user: userId }, // Find by user ID
+        value,
+        { new: true, upsert: true } 
+      );
+  
+      // Associate the user profile with the user
+      user.userProfile = userProfile._id;
+      await user.save();
+  
+      // Return the user profile
+      res.status(201).json({ userProfile });
+  
+    } catch (error) {
+      console.error('Error adding/updating user profile:', error);
+      res.status(500).send(error.message);
+    }
+  };
+
+
+  // controller to get user profiles
+export const getUserProfiles = async (req, res) => {
+    try {
+      const allUserProfiles = await userProfileModel.find();
+      if (allUserProfiles.length === 0) {
+        return res.status(404).send('No user profiles found');
+      }
+      res.status(200).json({ userProfiles: allUserProfiles });
+    } catch (error) {
+      console.error('Error fetching user profiles:', error);
+      res.status(500).send(error.message);
+    }
+  };
+
+
+  export const getOneProfile = async (req, res) => {
+    try {
+      const userProfile = await userProfileModel.findById(req.params.id);
+      if (!userProfile) {
+        return res.status(404).send('User profile not found');
+      }
+      res.status(200).json({ userProfile });
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+      res.status(500).send(error.message);
+    }
+  };
+
+
+  export const updateProfile = async (req, res) => {
+    try {
+      const { error, value } = profileSchema.validate(req.body);
+      if (error) {
+        return res.status(400).send(error.details[0].message);
+      }
+  
+      const updatedProfile = await userProfileModel.findByIdAndUpdate(
+        req.params.userProfileId,
+        value,
+        { new: true }
+      );
+  
+      if (!updatedProfile) {
+        return res.status(404).send('User profile not found');
+      }
+  
+      res.status(200).json({ userProfile: updatedProfile });
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+      res.status(500).send(error.message);
+    }
+  };
+
+
+  // Delete a profile
+export const deleteProfile = async (req, res) => {
+    try {
+      const deletedProfile = await userProfileModel.findByIdAndDelete(req.params.userProfileId);
+  
+      if (!deletedProfile) {
+        return res.status(404).send('User profile not found');
+      }
+  
+      // Remove user profile reference from user
+      const user = await userModel.findById(deletedProfile.user);
+      if (user) {
+        user.userProfile = null;
+        await user.save();
+      }
+  
+      res.status(200).json({ userProfile: deletedProfile });
+    } catch (error) {
+      console.error('Error deleting user profile:', error);
+      res.status(500).send(error.message);
+    }
+  };
+  
+  
