@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { deleteSkills, getSkill, getSkills, patchSkills, postSkills } from "../controller/skill_controller.js";
-import { checkUserSession } from "../middleware/auth.js";
+import { deleteSkills, getSkill, getSkills, patchSkills, postSkills } from "../controllers/skills_controller.js";
+import { checkUserSession } from "../middlewares/auth.js";
 
 
 const skillsRouter =Router();
