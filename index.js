@@ -11,11 +11,21 @@ import { volunteerRouter } from "./router/volunteer_route.js";
 import {skillsRouter} from "./router/skills_route.js";
 import { achievementRouter } from "./router/achievement_route.js";
 import userProfileRouter from "./router/profile_route.js";
+import expressOasGenerator from "@mickeymond/express-oas-generator";
+
 
 
 
 //  instantiate express
 const app = express();
+
+//  for the swagger
+expressOasGenerator.handleResponses(app, {
+  alwaysServeDocs: true,
+  tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
+  mongooseModels: mongoose.modelNames()
+});
+
 
 // instantiate dbconnection
 dbConnection();
@@ -42,6 +52,11 @@ app.use("/api/v1", skillsRouter);
 app.use("/api/v1", educationRouter);
 app.use("/api/v1", userProfileRouter);
 app.use("/api,v1", achievementRouter);
+
+//  user generator
+expressOasGenerator.handleRequests();
+app.use((req, res) => res.redirect("/api-docs"));
+
 
 
 const port = process.env.PORT || 3090;
