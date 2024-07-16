@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserProfile, deleteProfile, getUserProfiles, updateProfile } from "../controllers/profile_controller.js";
+import { createUserProfile, deleteProfile, getUserProfile, updateProfile } from "../controllers/profile_controller.js";
 import { checkUserSession } from "../middlewares/auth.js";
 import { remoteUpload } from "../middlewares/uploads.js";
 
@@ -31,7 +31,7 @@ userProfileRouter.post( '/userProfile', remoteUpload.fields([
       { name: "resume", maxCount: 1 },
     ]),
     checkUserSession,
-    updateUserProfile
+    updateProfile
   );
 
 

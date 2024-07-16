@@ -69,7 +69,7 @@ export const getUserProfile = async (req, res) => {
   // };
 
 
-  export const updateUserProfile = async (req, res) => {
+  export const updateProfile = async (req, res) => {
     try {
       const { error, value } = userProfileSchema.validate(req.body);
       if (error) {
