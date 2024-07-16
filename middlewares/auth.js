@@ -18,6 +18,7 @@ export const checkUserSession = (req, res, next) => {
         req.user = user;
 
         // call next function
+        next();
         res.json(token);
 
 
