@@ -99,14 +99,14 @@ export const updateEducation = async (req, res) => {
 
   export const deleteEducation = async (req, res) => {
     try {
-      const deletedEducation = await educationModel.findByIdAndDelete(req.params.educationId);
+      const deletedEducation = await Education.findByIdAndDelete(req.params.educationId);
   
       if (!deletedEducation) {
         return res.status(404).send('Education not found');
       }
   
       // Remove education reference from user
-      const user = await userModel.findById(deletedEducation.user);
+      const user = await User.findById(deletedEducation.user);
       if (user) {
         user.education = user.education.filter(educationId => educationId.toString() !== req.params.educationId);
         await user.save();

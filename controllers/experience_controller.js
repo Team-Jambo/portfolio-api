@@ -33,7 +33,7 @@ export const addExperience = async (req, res) => {
          const userId = req.session.user.id;
         //after, find the user with the id that you passed when creating the workExperience 
         // bear this in mind that the session should be available in order to execute this
-        const user = await userModel.findById(userId);
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).send('User not found'); /*optionally console.log the error if you encounter challenges*/
         }
@@ -99,7 +99,7 @@ export const deleteExperience = async (req, res) => {
         }
 
         // filter out experience from user
-        const user = await userModel.findById(deletedExperience.user);
+        const user = await User.findById(deletedExperience.user);
         if (user) {
             user.experiences = user.experiences.filter(experienceId => experienceId.toString() !== req.params.experienceId);
             await user.save();
