@@ -1,9 +1,9 @@
 import {Router} from "express";
-import { deleteAchievements, getAchievement, getAchievements, patchAchievements, postAchievement } from "../controller/achievement_controller.js";
-import { checkUserSession } from "../middleware/auth.js";
+import { deleteAchievements, getAchievement, getAchievements, patchAchievements, postAchievement } from "../controllers/achievement_controller.js";
+import { checkUserSession } from "../middlewares/auth.js";
 
 
-const achievementRouter = Router();
+export const achievementRouter = Router();
 
 
 achievementRouter.get('/achievements', getAchievements);
@@ -16,5 +16,3 @@ achievementRouter.patch('/achievements/:id',checkUserSession, remoteUpload.singl
 
 achievementRouter.delete('/achievements/:id',checkUserSession, deleteAchievements);
 
-
-export default achievementRouter;

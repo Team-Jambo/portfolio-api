@@ -1,5 +1,5 @@
-import { Skill} from "../models/skills_model.js";
-import { User } from "../models/user_model.js";
+import { Skill} from "../model/skills_model.js";
+import { User } from "../model/user_model.js";
 import { skillsSchema } from "../schema/user_schema.js"
 
 

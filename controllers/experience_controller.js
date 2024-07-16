@@ -1,5 +1,5 @@
 import { Experience } from "../model/experience_model.js";
-import { User } from "../models/user_model.js";
+import { User } from "../model/user_model.js";
 import { experienceSchema } from "../schema/experience_schema.js";
 
 
