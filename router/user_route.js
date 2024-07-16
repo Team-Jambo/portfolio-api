@@ -11,6 +11,8 @@ userRouter.get("/users", getUsers);
 
 userRouter.post("/users/auth/login", login);
 
+userRouter.post("/users/auth/token", login);
+
 
 userRouter.post("/users/auth/signup", signup);
 
