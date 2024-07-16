@@ -12,7 +12,7 @@ export const createUserProfile = async (req, res) => {
         resume: req.files.resume[0].filename,
       });
   
-      // Finding the user by ID
+      // Finding the user by ID+++++++++++++
       const userId = value.user; 
       const user = await User.findById(userId);
       if (!user) {
