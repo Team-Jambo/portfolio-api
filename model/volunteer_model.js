@@ -2,7 +2,7 @@ import { Schema, model, Types } from "mongoose";
 
 // create new schema
 
-const volunteerSchema = new Schema({
+const volunteeringSchema = new Schema({
     organisation: {
         type: String
     },
@@ -38,7 +38,7 @@ const volunteerSchema = new Schema({
         type: Types.ObjectId, ref: 'User'}
 });
 
-export const VolunteerModel = model('Volunteer', volunteerSchema);
+export const Volunteering = model('Volunteer', volunteeringSchema);
 
 
 
