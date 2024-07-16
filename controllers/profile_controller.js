@@ -4,7 +4,7 @@ import { userProfileSchema } from "../schema/profile_schema.js";
 
 
 // Create user profile
-export const addUserProfile = async (req, res) => {
+export const createUserProfile = async (req, res) => {
     try {
       const { error, value } = userProfileSchema.validate({
         ...req.body,
@@ -41,7 +41,7 @@ export const addUserProfile = async (req, res) => {
 
 
   // controller to get user profiles
-export const getUserProfiles = async (req, res) => {
+export const getUserProfile = async (req, res) => {
     try {
       const allUserProfiles = await userProfile.find();
       if (allUserProfiles.length === 0) {
@@ -55,21 +55,21 @@ export const getUserProfiles = async (req, res) => {
   };
 
 
-  export const getOneProfile = async (req, res) => {
-    try {
-      const userProfile = await userProfile.findById(req.params.id);
-      if (!userProfile) {
-        return res.status(404).send('User profile not found');
-      }
-      res.status(200).json({ userProfile });
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-      res.status(500).send(error.message);
-    }
-  };
+  // export const getOneProfile = async (req, res) => {
+  //   try {
+  //     const userProfile = await userProfile.findById(req.params.id);
+  //     if (!userProfile) {
+  //       return res.status(404).send('User profile not found');
+  //     }
+  //     res.status(200).json({ userProfile });
+  //   } catch (error) {
+  //     console.error('Error fetching user profile:', error);
+  //     res.status(500).send(error.message);
+  //   }
+  // };
 
 
-  export const updateProfile = async (req, res) => {
+  export const updateUserProfile = async (req, res) => {
     try {
       const { error, value } = userProfileSchema.validate(req.body);
       if (error) {
