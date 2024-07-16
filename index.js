@@ -10,7 +10,7 @@ const app = express();
 //  for the swagger
 expressOasGenerator.handleResponses(app, {
     alwaysServeDocs: true,
-    tags: ["achievements", "user", "profile", "education", "experience", "volunteer", "skills", "project"],
+    tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
     mongooseModels: mongoose.modelNames()
 });
 
