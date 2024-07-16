@@ -1,6 +1,6 @@
-import { Achievement } from "../models/achievement_model.js";
-import { Achievement} from "../schema/user_schema.js";
-import { User } from "../models/user_model.js";
+import { Achievement } from "../model/achievement_model.js";
+import { achievementSchema} from "../schema/user_schema.js";
+import { User } from "../model/user_model.js";
 
 
 
@@ -40,7 +40,7 @@ export const getAchievement = async (req, res, next) => {
 //Post an achievement
 export const postAchievement = async (req, res, next) => {
   try {
-    const { error, value } = Achievement.validate({
+    const { error, value } = achievementSchema.validate({
       ...req.body,
       award: req.files.award[0].filename,
       image: req.files.image[0].filename,
@@ -72,7 +72,7 @@ export const postAchievement = async (req, res, next) => {
 //Update Achievements
 export const patchAchievements = async (req, res, next) => {
   try {
-    const { error, value } = Achievement.validate({
+    const { error, value } = achievementSchema.validate({
       ...req.body,
       award: req.files.award[0].filename,
       image: req.files.image[0].filename
