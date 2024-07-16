@@ -3,7 +3,6 @@ import express from "express";
 import { dbConnection } from "./config/db.js";
 import MongoStore from "connect-mongo"
 import userRouter from "./router/user_route.js";
-import mongoose from "mongoose";
 import cors from "cors";
 import session from "express-session";
 import { experienceRouter } from "./router/experience_route.js";
