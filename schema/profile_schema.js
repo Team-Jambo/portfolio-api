@@ -10,7 +10,7 @@ export const userProfileSchema = joi.object({
         contact: joi.string(),
         about:joi.string(),
         dateOfBirth:joi.string(),
-        languages:joi.string.valid('English','Ga','Twi','Ewe'),
+        languages:joi.string().valid('English','Ga','Twi','Ewe'),
         resume:joi.string(),
         linkedinLink:joi.string(),
         twitterLink:joi.string(),
