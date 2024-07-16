@@ -5,7 +5,6 @@ import MongoStore from "connect-mongo"
 import userRouter from "./router/user_route.js";
 import mongoose from "mongoose";
 import cors from "cors";
-import expressOasGenerator from "@mickeymond/express-oas-generator"
 import session from "express-session";
 import { experienceRouter } from "./router/experience_route.js";
 import { projectRouter } from "./router/project_route.js";
@@ -22,13 +21,9 @@ import expressOasGenerator from "@mickeymond/express-oas-generator";
 //  instantiate express
 const app = express();
 app.use(cors({credentials: true, origin: 'http://localhost:3090'}));
-expressOasGenerator.handleResponses(app, {
-    alwaysServeDocs: true,
-    tags: ['auth','userProfile', 'skills', 'projects', 'volunteering', 'experiences', 'education', 'achievements'],
-    mongooseModels: mongoose.modelNames(), 
-});
 
-//  for the swagger
+
+//  for the swagger ui
 expressOasGenerator.handleResponses(app, {
   alwaysServeDocs: true,
   tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
