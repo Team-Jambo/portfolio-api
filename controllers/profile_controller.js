@@ -1,5 +1,5 @@
 import { userProfile } from "../model/profile_model.js";
-import { userModel } from "../model/user_model.js";
+import { User } from "../model/user_model.js";
 import { userProfileSchema } from "../schema/profile_schema.js";
 
 
@@ -14,7 +14,7 @@ export const addUserProfile = async (req, res) => {
   
       // Finding the user by ID
       const userId = value.user; 
-      const user = await userModel.findById(userId);
+      const user = await User.findById(userId);
       if (!user) {
         return res.status(404).send('User not found');
       }
@@ -104,7 +104,7 @@ export const deleteProfile = async (req, res) => {
       }
   
       // Remove user profile reference from user
-      const user = await userModel.findById(deletedProfile.user);
+      const user = await User.findById(deletedProfile.user);
       if (user) {
         user.userProfile = null;
         await user.save();
