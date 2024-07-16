@@ -1,6 +1,6 @@
 
-import { Education } from "../models/education_model.js";
-import { User } from "../models/user_model.js";
+import { Education } from "../model/education_model.js";
+import { User } from "../model/user_model.js";
 import { educationSchema } from "../schema/user_schema.js";
 
 export const addEducation = async (req, res) => {

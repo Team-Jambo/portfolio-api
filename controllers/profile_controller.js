@@ -1,15 +1,16 @@
-import { userProfileModel } from "../models/userprofile_model.js";
-import { userModel } from "../models/user_model.js";
-import { profileSchema } from "../schema/profile_schema.js";
+import { userProfile } from "../model/profile_model.js";
+import { userModel } from "../model/user_model.js";
+import { userProfileSchema } from "../schema/profile_schema.js";
 
 
 // Create user profile
 export const addUserProfile = async (req, res) => {
     try {
-      const { error, value } = profileSchema.validate(req.body);
-      if (error) {
-        return res.status(400).send(error.details[0].message);
-      }
+      const { error, value } = userProfileSchema.validate({
+        ...req.body,
+        profilePicture: req.files.profilePicture[0].filename,
+        resume: req.files.resume[0].filename,
+      });
   
       // Finding the user by ID
       const userId = value.user; 
@@ -19,7 +20,7 @@ export const addUserProfile = async (req, res) => {
       }
   
       // Create or update the user profile
-      let userProfile = await userProfileModel.findOneAndUpdate(
+      let userProfile = await userProfile.findOneAndUpdate(
         { user: userId }, // Find by user ID
         value,
         { new: true, upsert: true } 
@@ -42,7 +43,7 @@ export const addUserProfile = async (req, res) => {
   // controller to get user profiles
 export const getUserProfiles = async (req, res) => {
     try {
-      const allUserProfiles = await userProfileModel.find();
+      const allUserProfiles = await userProfile.find();
       if (allUserProfiles.length === 0) {
         return res.status(404).send('No user profiles found');
       }
@@ -56,7 +57,7 @@ export const getUserProfiles = async (req, res) => {
 
   export const getOneProfile = async (req, res) => {
     try {
-      const userProfile = await userProfileModel.findById(req.params.id);
+      const userProfile = await userProfile.findById(req.params.id);
       if (!userProfile) {
         return res.status(404).send('User profile not found');
       }
@@ -70,12 +71,12 @@ export const getUserProfiles = async (req, res) => {
 
   export const updateProfile = async (req, res) => {
     try {
-      const { error, value } = profileSchema.validate(req.body);
+      const { error, value } = userProfileSchema.validate(req.body);
       if (error) {
         return res.status(400).send(error.details[0].message);
       }
   
-      const updatedProfile = await userProfileModel.findByIdAndUpdate(
+      const updatedProfile = await userProfile.findByIdAndUpdate(
         req.params.userProfileId,
         value,
         { new: true }
@@ -96,7 +97,7 @@ export const getUserProfiles = async (req, res) => {
   // Delete a profile
 export const deleteProfile = async (req, res) => {
     try {
-      const deletedProfile = await userProfileModel.findByIdAndDelete(req.params.userProfileId);
+      const deletedProfile = await userProfile.findByIdAndDelete(req.params.userProfileId);
   
       if (!deletedProfile) {
         return res.status(404).send('User profile not found');

@@ -1,5 +1,5 @@
-import { projectModel } from "../models/userproject_models.js";
-import { userModel } from "../models/user_models.js";
+import { Project } from "../model/project_model.js";
+import { User } from "../model/user_model.js";
 import { projectSchema } from "../schema/project_schema.js";
 
 
@@ -8,7 +8,7 @@ export const getAllProjects = async (req, res) => {
     try {
         //we are fetching projects that belongs to a particular user
         const userId = req.params.id
-        const allprojects = await projectModel.find({user: userId})
+        const allprojects = await Project.find({user: userId})
     if(allprojects.length == 0){
         return res.status(404).send('No project available!');
     }
@@ -27,7 +27,7 @@ export const postProject = async (req, res) => {
         };
 
         //create project with the value
-        const project = await projectModel.create(value);
+        const project = await Project.create(value);
 
         //after, find the user with the id that you passed when creating the project 
         const userId = req.session.user.id;
@@ -53,7 +53,7 @@ export const postProject = async (req, res) => {
 export const getOneProject = async (req, res) => {
 
     try {
-        const project = await projectModel.findById(req.params.id);
+        const project = await Project.findById(req.params.id);
         res.status(200).json(project);
     } catch (error) {
         return res.status(500).send(error);
@@ -69,7 +69,7 @@ export const updateProject = async (req, res) => {
             return res.status(400).send(error.details[0].message);
         }
 
-        const updatedProject = await projectModel.findByIdAndUpdate(
+        const updatedProject = await Project.findByIdAndUpdate(
             req.params.projectId,
             value,
             { new: true }
@@ -89,7 +89,7 @@ export const updateProject = async (req, res) => {
 
 export const deleteProject = async (req, res) => {
     try {
-        const deletedProject = await projectModel.findByIdAndDelete(req.params.projectId);
+        const deletedProject = await Project.findByIdAndDelete(req.params.projectId);
 
         if (!deletedProject) {
             return res.status(404).send("Project not found!");

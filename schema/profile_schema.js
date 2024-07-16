@@ -1,6 +1,6 @@
 import joi from 'joi';
 
-export const profileSchema = joi.object({
+export const userProfileSchema = joi.object({
     profile:{
         profilePicture:joi.string(),
         bio:joi.string(),
@@ -11,9 +11,9 @@ export const profileSchema = joi.object({
         about:joi.string(),
         dateOfBirth:joi.string(),
         languages:joi.string.valid('English','Ga','Twi','Ewe'),
-        resume:Joi.string(),
-        linkedinLink:Joi.string(),
-        twitterLink:Joi.string(),
-        user: Joi.string().required()
+        resume:joi.string(),
+        linkedinLink:joi.string(),
+        twitterLink:joi.string(),
+        user: joi.string().required()
     }
 });

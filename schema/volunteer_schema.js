@@ -1,7 +1,6 @@
 import joi from 'joi';
 
-export const volunteerSchema = joi.object({
-   volunteer:{
+export const volunteeringSchema = joi.object({
         organisation:joi.string().required().sanitize(),
         description:joi.string(),
         skill:joi.string(),
@@ -10,7 +9,6 @@ export const volunteerSchema = joi.object({
         role:joi.string(),
         responsibility:joy.string(),
         location:joi.string() 
-    }
 });
 
 

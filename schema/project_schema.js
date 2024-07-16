@@ -2,7 +2,6 @@ import joi from "joi";
 
 
 export const projectSchema = joi.object({
-    project:{
         projectName:joi.string().required(),
         description:joi.string(),
         contributors:joi.string(),
@@ -10,5 +9,5 @@ export const projectSchema = joi.object({
         skills: joi.string(),
         projectUrl: joi.string(),
         image: joi.string()
-    }
+    
 });
