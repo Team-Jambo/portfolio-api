@@ -7,8 +7,6 @@ export const userProfileRouter = Router();
 
 userProfileRouter.get('/userProfile', getUserProfiles);
 
-userProfileRouter.get('/userprofile', addUserProfile);
-
 userProfileRouter.patch('/userprofile', updateProfile);
 
 userProfileRouter.delete('/userprofile', deleteProfile);
