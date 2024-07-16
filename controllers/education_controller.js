@@ -94,7 +94,7 @@ export const updateEducation = async (req, res) => {
       console.error('Error updating education:', error);
       res.status(500).send(error.message);
     }
-  };
+  }; 
 
 
   export const deleteEducation = async (req, res) => {
