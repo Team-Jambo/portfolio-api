@@ -38,7 +38,7 @@ const volunteeringSchema = new Schema({
         type: Types.ObjectId, ref: 'User'}
 });
 
-export const Volunteering = model('Volunteer', volunteeringSchema);
+export const Volunteering = model('Volunteering', volunteeringSchema);
 
 
 

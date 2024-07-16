@@ -23,4 +23,4 @@ const experienceSchema = new Schema ({
         user: {type: Types.ObjectId, ref: 'User'}
     });
 
-export const Experience = model("Workexperience", experienceSchema);
+export const Experience = model("Experience", experienceSchema);
