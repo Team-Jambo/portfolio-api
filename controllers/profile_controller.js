@@ -4,7 +4,7 @@ import { userProfileSchema } from "../schema/profile_schema.js";
 
 
 // Create user profile
-export const addUserProfile = async (req, res) => {
+export const createUserProfile = async (req, res) => {
     try {
       const { error, value } = userProfileSchema.validate({
         ...req.body,
