@@ -114,7 +114,7 @@ export const logout = async (req, res, next) => {
             // }
 
             // Clear the session cookie
-            res.status(200).json("Logged out successfully");
+            res.status(200).json("You successfully Logged out");
         
     } catch (error) {
         next(error);
