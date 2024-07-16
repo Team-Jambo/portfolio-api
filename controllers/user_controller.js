@@ -176,23 +176,23 @@ export const getUser = async (req, res, next) => {
 
             .select("-password")
 
-            // .populate({ path: "education", options})
+            .populate({ path: "education", options})
 
-            // .populate("userProfile")
+            .populate("userProfile")
 
-            // .populate("skills")
+            .populate("skills")
 
-            // .populate({ path: "achievements", options: { sort: { date: -1 } } })
+            .populate({ path: "achievements", options: { sort: { date: -1 } } })
 
-            // .populate({ path: "experiences", options })
+            .populate({ path: "experiences", options })
 
-            // .populate({ path: "volunteering", options })
+            .populate({ path: "volunteering", options })
 
-            // .populate({ path: 'projects', options });
+            .populate({ path: 'projects', options });
 
-        // if (!userDetails) {
-        //     return res.status(404).json(userDetails);
-        // }
+        if (!userDetails) {
+            return res.status(404).json(userDetails);
+        }
 
         return res.status(200).json({ userDetails });
     } catch (error) {
