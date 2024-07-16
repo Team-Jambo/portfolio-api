@@ -1,4 +1,4 @@
-// import { User } from "../model/user_model.js";
+import { User } from "../model/user_model.js";
 import { Volunteering } from "../model/volunteer_model.js";
 import {  volunteeringSchema } from "../schema/volunteer_schema.js";
 
@@ -29,7 +29,7 @@ export const postVolunteer = async (req, res) => {
 
         //after, find the user with the id that you passed when creating the volunteer 
         const userId = req.session.user.id;
-        const user = await userModel.findById(userId);
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -98,7 +98,7 @@ export const deleteVolunteer = async (req, res) => {
       }
   
       // Remove volunteer from user
-      const user = await userModel.findById(deletedVolunteer.user);
+      const user = await User.findById(deletedVolunteer.user);
       if (user) {
         user.volunteer = user.volunteer.filter(volunteerId => volunteerId.toString() !== req.params.volunteerId);
         await user.save();
