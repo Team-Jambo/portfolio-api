@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addUserProfile, createUserProfile, deleteProfile, getUserProfiles, updateProfile } from "../controllers/profile_controller.js";
+import { createUserProfile, deleteProfile, getUserProfiles, updateProfile } from "../controllers/profile_controller.js";
 import { checkUserSession } from "../middlewares/auth.js";
 import { remoteUpload } from "../middlewares/uploads.js";
 
@@ -7,7 +7,7 @@ export const userProfileRouter = Router();
 
 userProfileRouter.get('/userProfile', getUserProfiles);
 
-userProfileRouter.get('/userprofile', addUserProfile);
+// userProfileRouter.get('/userprofile', addUserProfile);
 
 userProfileRouter.patch('/userprofile', updateProfile);
 
