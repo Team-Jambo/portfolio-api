@@ -3,6 +3,7 @@ import express from "express";
 import mongoose from "mongoose";
 import { dbConnection } from "./config/db.js";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
+import { projectRouter } from "./router/project_route.js";
 
 //  instantiate express
 const app = express();
@@ -13,6 +14,9 @@ expressOasGenerator.handleResponses(app, {
     tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
     mongooseModels: mongoose.modelNames()
 });
+
+// use routes
+app.use("/api/v1", projectRouter);
 
 //  user generator
 expressOasGenerator.handleRequests();

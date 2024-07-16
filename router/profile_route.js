@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { addUserProfile, createUserProfile, deleteProfile, deleteUserProfile, getAllUserProfiles, getUserProfile, getUserProfiles, updateProfile, updateUserProfile } from "../controllers/profile_controller.js";
 import { checkUserSession } from "../middleware/auth.js";
-import { remoteUpload } from "../middleware/uploads.js";
+import { remoteUpload } from "../middlewares/uploads.js";
 
 export const userProfileRouter = Router();
 
