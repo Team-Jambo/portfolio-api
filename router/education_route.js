@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addEducation, deleteEducation, getAllEducation, getOneEducation, updateEducation } from "../controllers/education_controller";
+import { addEducation, deleteEducation, getAllEducation, getOneEducation, updateEducation } from "../controllers/education_controller.js";
 
 //  instantiate
 export const educationRouter = Router();

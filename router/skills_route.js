@@ -1,9 +1,9 @@
 import { Router } from "express";
-import { deleteSkills, getSkill, getSkills, patchSkills, postSkills } from "../controller/skill_controller.js";
-import { checkUserSession } from "../middleware/auth.js";
+import { deleteSkills, getSkill, getSkills, patchSkills, postSkills } from "../controllers/skills_controller.js";
+import { checkUserSession } from "../middlewares/auth.js";
 
 
-const skillsRouter =Router();
+export const skillsRouter =Router();
 
 skillsRouter.get('/skills',getSkills);
 
@@ -15,4 +15,3 @@ skillsRouter.patch('/skills/:id',checkUserSession, patchSkills);
 
 skillsRouter.delete('/skills/:id',checkUserSession, deleteSkills);
 
-export default skillsRouter;
