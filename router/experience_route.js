@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { addExperience, getExperiences, getOneWorkExperience } from "../controller/workexperience_controller.js";
+import { addExperience, deleteExperience, getExperiences, getOneWorkExperience, updateExperience } from "../controllers/experience_controller.js";
 
 // instantiate the router
 export const experienceRouter = Router();
 
 // define all possible routes to be used
-experienceRouter.post("/experience", addExperience);
+experienceRouter.post("/users/experience", addExperience);
 experienceRouter.get("/experience", getExperiences);
-experienceRouter.get("/experience/:id", getOneWorkExperience);
-experienceRouter.patch('/experience/:experienceId',updateExperience)
-experienceRouter.delete('/experience/:experienceId',deleteExperience)
+experienceRouter.get("/users/experience/:id", getOneWorkExperience);
+experienceRouter.patch('/users/experience/:experienceId', updateExperience)
+experienceRouter.delete('/users/experience/:experienceId', deleteExperience)

@@ -1,7 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
 // create new Schema
-const workexperienceSchema = new Schema ({
+const experienceSchema = new Schema ({
         position: {type: String, required: true},
         company: {type: String, required: true},
         location: {
@@ -23,4 +23,4 @@ const workexperienceSchema = new Schema ({
         user: {type: Types.ObjectId, ref: 'User'}
     });
 
-export const workExperienceModel = model("Workexperience", workexperienceSchema);
+export const Experience = model("Workexperience", experienceSchema);

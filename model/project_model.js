@@ -14,4 +14,4 @@ const projectSchema = new Schema ({
     image: {type: String}
 });
 
-export const projectModel = model('Project', projectSchema);
+export const Project = model('Project', projectSchema);
