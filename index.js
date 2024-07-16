@@ -1,9 +1,8 @@
 // import necessary modules
 import express from "express";
-import mongoose from "mongoose";
 import { dbConnection } from "./config/db.js";
 import MongoStore from "connect-mongo"
-import userRouter from "./router/user_routes.js";
+import userRouter from "./router/user_route.js";
 import session from "express-session";
 
 //  instantiate express
