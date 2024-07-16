@@ -1,7 +1,7 @@
 import { Schema, model, Types } from "mongoose";
 
 // create a new Schema
-const Achievements = new Schema ({
+const achievementSchema = new Schema ({
     awardType: {
         type: String,
         required: true
