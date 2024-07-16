@@ -3,7 +3,7 @@ import { Schema, model, Types } from "mongoose";
 // create new schema
 
 const skillsSchema = new Schema ({
-typeOfskill: {
+typeOfSkill: {
     type: String 
 },
 
@@ -17,4 +17,4 @@ levelOfProficiency: {
         type: Types.ObjectId, ref: 'User'}
 });
 
-export const SkillModel = model('Skill', skillsSchema);
+export const Skill= model('Skill', skillsSchema);

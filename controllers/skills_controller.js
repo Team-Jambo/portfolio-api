@@ -1,4 +1,4 @@
-import { SkillModel } from "../models/skills_model.js";
+import { Skill} from "../models/skills_model.js";
 import { User } from "../models/user_model.js";
 import { skillsSchema } from "../schema/user_schema.js"
 
@@ -10,7 +10,7 @@ export const getSkills = async (req, res, next) => {
     //we are fetching education that belongs to a particular user
     const userSessionId = req.session.user.id
     //Get all skills from database
-    const allSkills = await SkillModel.find({ user: userSessionId })
+    const allSkills = await Skill.find({ user: userSessionId })
     if (allSkills.length == 0) {
 
       //Return all skills as response 
@@ -29,7 +29,7 @@ export const getSkills = async (req, res, next) => {
 export const getSkill = async (req, res, next) => {
   try {
     //Get one skill by id
-    const getOneSkill = await SkillModel.findById(req.params.id)
+    const getOneSkill = await Skill.findById(req.params.id)
     //Return a response
     res.status(200).json(getOneSkill)
   } catch (error) {
@@ -57,7 +57,7 @@ export const postSkills = async (req, res, next) => {
       return res.status(404).send('User not found');
     }
 
-    const skill = await SkillModel.create({ ...value, user: userSessionId });
+    const skill = await Skill.create({ ...value, user: userSessionId });
 
     user.skills.push(skill._id)
 
@@ -80,7 +80,7 @@ export const postSkills = async (req, res, next) => {
 export const patchSkills = async (req, res, next) => {
   try {
     //update skills by id
-    const updateSkills = await SkillModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updateSkills = await Skill.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
     //return response
     res.status(200).json(updateSkills);
@@ -101,7 +101,7 @@ export const deleteSkills = async (req, res, next) => {
       return res.status(404).send("User not found")
     }
     //Delete a skill by id
-    const deleteOneSkill = await SkillModel.findByIdAndDelete(req.params.id)
+    const deleteOneSkill = await Skill.findByIdAndDelete(req.params.id)
 
     //return response
     if (!deleteOneSkill) {

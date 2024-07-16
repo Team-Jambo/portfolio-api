@@ -1,8 +1,8 @@
 import { Schema, model, Types } from "mongoose";
 
 // create a new Schema
-const achievementSchema = new Schema ({
-    awardtype: {
+const Achievements = new Schema ({
+    awardType: {
         type: String,
         required: true
     },
@@ -33,4 +33,4 @@ const achievementSchema = new Schema ({
 //install to json
 
 
-export const AchievementModel = model('Achievement', achievementSchema);
+export const Achievement = model('Achievement', achievementSchema);

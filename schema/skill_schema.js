@@ -1,7 +1,6 @@
-const skillSchema = joi.object({
+const skillsSchema = joi.object({
 
-    skill:{
         typeOfSkill:joi.string(),
         levelOfProficiency:joi.string().valid('beginner','intermediate','expert')
-    }
+   
 });
