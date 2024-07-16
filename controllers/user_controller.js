@@ -1,6 +1,7 @@
 import { User } from "../model/user_model.js";
 import { userSchema } from "../schema/user_schema.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 
 // export const signup = async (req, res, next) => {
 //     try {
@@ -97,7 +98,47 @@ export const login = async (req, res, next) => {
   
       res.status(201).json("Your Login was Successful");
       }
-      // Verify user password
+      // Return responds
+      
+    } catch (error) {
+      console.log(error)
+      next(error);
+    }
+  };
+
+
+
+
+  export const token = async (req, res, next) => {
+    try {
+      const { userName, email, password } = req.body;
+      //  Find a user using their email or username
+      const user = await User.findOne({
+        $or: [{ email }, { userName }],
+      });
+  
+      if (!user) {
+        return res.status(401).json("User does not exist");
+      }else {
+          const correctPass = bcrypt.compare(password, user.password);
+      if (!correctPass) {
+        return res.status(401).json("Invalid login details");
+      }
+      // Generate a token for the user
+      const token = jwt.sign (
+        {id: user.id}, 
+        process.env.JWT_PRIVATE_KEY,
+        {expiresIn: "1h"}
+    );
+      
+    //   Return response
+      res.status(200).json(
+        {
+            message: 'User lodded in, accessToken: token'
+        });
+  
+      
+      }
       
     } catch (error) {
       console.log(error)
