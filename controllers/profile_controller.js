@@ -104,7 +104,7 @@ export const deleteProfile = async (req, res) => {
       }
   
       // Remove user profile reference from user
-      const user = await userModel.findById(deletedProfile.user);
+      const user = await User.findById(deletedProfile.user);
       if (user) {
         user.userProfile = null;
         await user.save();

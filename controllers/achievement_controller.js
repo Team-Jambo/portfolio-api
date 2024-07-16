@@ -1,5 +1,5 @@
 import { Achievement } from "../model/achievement_model.js";
-import { achievementSchema} from "../schema/user_schema.js";
+import { achievementSchema} from "../schema/achievement_schema.js";
 import { User } from "../model/user_model.js";
 
 

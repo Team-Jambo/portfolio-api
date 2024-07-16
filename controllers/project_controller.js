@@ -31,7 +31,7 @@ export const postProject = async (req, res) => {
 
         //after, find the user with the id that you passed when creating the project 
         const userId = req.session.user.id;
-        const user = await userModel.findById(userId);
+        const user = await User.findById(userId);
         if (!user) {
             return res.status(404).send('User not found');
         }
@@ -96,7 +96,7 @@ export const deleteProject = async (req, res) => {
         }
 
         // Remove project reference from user
-        const user = await userModel.findById(deletedProject.user);
+        const user = await User.findById(deletedProject.user);
         if (user) {
             user.projects = user.projects.filter(projectId => projectId.toString() !== req.params.projectId);
             await user.save();

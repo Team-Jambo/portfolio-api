@@ -1,7 +1,7 @@
 import {Router} from "express";
 import { deleteAchievements, getAchievement, getAchievements, patchAchievements, postAchievement } from "../controllers/achievement_controller.js";
 import { checkUserSession } from "../middlewares/auth.js";
-import { remoteUpload } from "../middlewares/uploads.js";
+import {remoteUpload} from "../middlewares/uploads.js"
 
 
 export const achievementRouter = Router();
