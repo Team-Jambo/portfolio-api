@@ -15,6 +15,7 @@ import { skillsRouter } from "./router/skills_route.js";
 import { achievementRouter } from "./router/achievement_route.js";
 import userProfileRouter from "./router/profile_route.js";
 import { restartServer } from "./restart_server.js";
+import expressOasGenerator from "@mickeymond/express-oas-generator";
 
 
 
@@ -53,8 +54,8 @@ app.use("/api/v1", userProfileRouter);
 app.use("/api,v1", achievementRouter);
 
 //  user generator
-// expressOasGenerator.handleRequests();
-// app.use((req, res) => res.redirect("/api-docs"));
+expressOasGenerator.handleRequests();
+app.use((req, res) => res.redirect("/api-docs"));
 
 
 
