@@ -23,11 +23,11 @@ export const postProject = async (req, res) => {
     try {
         const { error, value } = projectSchema.validate({
           ...req.body,
-          image: req.file.image[0].filename,
+          image: req.file.filename,
         });
 
         //create project with the value
-        const project = await Project.create(value);
+        const newProject = await Project.create(value);
 
         //after, find the user with the id that you passed when creating the project 
         const userId = req.session?.user?.id || req?.user?.id;
@@ -37,7 +37,7 @@ export const postProject = async (req, res) => {
         }
         
         //if you find the user, push the project id you just created inside
-        user.project.push(project._id);
+        user.projects.push(newProject._id);
 
         //and save the user now with the projectId
         await user.save();

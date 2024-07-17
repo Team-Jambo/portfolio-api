@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { deleteProject, getAllProjects, getOneProject, postProject, updateProject } from "../controllers/project_controller.js";
 import { checkUserSession } from "../middlewares/auth.js";
+import { remoteUpload } from "../middlewares/uploads.js";
 
 // instantiate the router
 export const projectRouter = Router();
@@ -14,10 +15,10 @@ projectRouter.post( '/users/projects', remoteUpload.fields([
 );
 
 projectRouter.get("/users/projects", getAllProjects);
-projectRouter.get("/users/projects/:id", getOneProject);
+projectRouter.get("/users/projects/projectId", getOneProject);
 
 projectRouter.patch(
-    "/users/projects/:id",
+    "/users/projects/projectId",
     remoteUpload.fields([
       { name: "image", maxCount: 1 },
     ]),

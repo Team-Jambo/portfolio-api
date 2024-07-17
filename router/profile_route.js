@@ -25,7 +25,7 @@ userProfileRouter.post( '/userProfile', remoteUpload.fields([
   );
 
   userProfileRouter.patch(
-    "/users/userProfile/:id",
+    "/users/userProfile/userProfileId",
     remoteUpload.fields([
       { name: "profilePicture", maxCount: 1 },
       { name: "resume", maxCount: 1 },
