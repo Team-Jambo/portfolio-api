@@ -1,6 +1,6 @@
 
 
-import { getUser, getUsers, login, signup, updateUser } from "../controllers/user_controller.js";
+import { getUser, getUsers, login, logout, signup, updateUser } from "../controllers/user_controller.js";
 import { Router } from "express";
 import { checkUserSession } from "../middlewares/auth.js";
 
@@ -12,6 +12,8 @@ userRouter.get("/users", getUsers);
 userRouter.post("/users/auth/session/login", login);
 
 userRouter.post("/users/auth/token/login", login);
+
+userRouter.post("/users/auth/logout", logout);
 
 userRouter.post("/users/auth/signup", signup);
 
