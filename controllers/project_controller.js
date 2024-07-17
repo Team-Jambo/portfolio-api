@@ -30,7 +30,7 @@ export const postProject = async (req, res) => {
         const project = await Project.create(value);
 
         //after, find the user with the id that you passed when creating the project 
-        const userId = req.session.user.id;
+        const userId = req.session?.user?.id || req?.user?.id;
         const user = await User.findById(userId);
         if (!user) {
             return res.status(404).send('User not found');

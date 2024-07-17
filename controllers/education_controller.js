@@ -15,7 +15,9 @@ export const addEducation = async (req, res) => {
     const education = await Education.create(value)
 
     //after, find the user with the id that you passed when creating the education 
-    const user = await User.findById(value.user);
+    const id = req.session?.user?.id || req?.user?.id; // Assuming user ID is stored in session
+
+    const user = await User.findById(id);
     if (!user) {
       return res.status(404).send('User not found');
     }

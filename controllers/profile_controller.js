@@ -13,7 +13,7 @@ export const createUserProfile = async (req, res) => {
       });
   
       // Finding the user by ID
-      const userId = value.user; 
+      const userId = req.session?.user?.id || req?.user?.id; 
       const user = await User.findById(userId);
       if (!user) {
         return res.status(404).send('User not found');
