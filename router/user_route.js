@@ -2,9 +2,8 @@
 
 import { getUser, getUsers, login, signup, updateUser } from "../controllers/user_controller.js";
 import { Router } from "express";
-
 import { checkUserSession } from "../middlewares/auth.js";
-import { remoteUpload } from "../middlewares/uploads.js";
+
 
 export const userRouter = Router();
 
