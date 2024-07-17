@@ -16,13 +16,25 @@ import { achievementRouter } from "./router/achievement_route.js";
 import userProfileRouter from "./router/profile_route.js";
 import { restartServer } from "./restart_server.js";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
-
+import { restartServer } from "./restart_server.js";
 
 
 
 //  instantiate express
 const app = express();
 
+
+app.get("/api/v1/health", (req, res) => {
+    res.json({ status: "UP" });
+  });
+
+
+//  for the swagger ui
+expressOasGenerator.handleResponses(app, {
+  alwaysServeDocs: true,
+  tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
+  mongooseModels: mongoose.modelNames()
+});
 
 
 // instantiate dbconnection
@@ -53,9 +65,13 @@ app.use("/api/v1", educationRouter);
 app.use("/api/v1", userProfileRouter);
 app.use("/api,v1", achievementRouter);
 
-//  user generator
+//  use generator
 expressOasGenerator.handleRequests();
 app.use((req, res) => res.redirect("/api-docs"));
+
+const reboot = async () => {
+    setInterval(restartServer, process.env.INTERVAL)
+};
 
 
 
@@ -88,4 +104,4 @@ dbConnection()
 
 // app.listen(port, () => {
 //     console.log(`App is listening on port ${port}`);
-// });
+

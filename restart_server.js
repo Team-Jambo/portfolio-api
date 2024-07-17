@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const healthCheckUrl = 'http://localhost:3090/api/v1/health'; // Replace with your actual health endpoint URL
+
 
 export const restartServer = async () => {
     try {
