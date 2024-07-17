@@ -13,13 +13,14 @@ import { volunteerRouter } from "./router/volunteer_route.js";
 import { skillsRouter } from "./router/skills_route.js";
 import { achievementRouter } from "./router/achievement_route.js";
 import userProfileRouter from "./router/profile_route.js";
-import { restartServer } from "./restart_server.js";
-restartServer
+import expressOasGenerator from "@mickeymond/express-oas-generator";
+
 
 
 
 //  instantiate express
 const app = express();
+
 
 
 // instantiate dbconnection
@@ -49,6 +50,11 @@ app.use("/api/v1", skillsRouter);
 app.use("/api/v1", educationRouter);
 app.use("/api/v1", userProfileRouter);
 app.use("/api,v1", achievementRouter);
+
+//  user generator
+expressOasGenerator.handleRequests();
+app.use((req, res) => res.redirect("/api-docs"));
+
 
 
 app.get("/api/v1/health", (req, res) => {

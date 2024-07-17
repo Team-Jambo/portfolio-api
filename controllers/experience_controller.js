@@ -30,7 +30,7 @@ export const addExperience = async (req, res) => {
         const newExperience = await Experience.create(value)
 
          // assign a userid var
-         const userId = req.session.user.id;
+         const userId = req.session?.user?.id || req?.user?.id;
         //after, find the user with the id that you passed when creating the workExperience 
         // bear this in mind that the session should be available in order to execute this
         const user = await User.findById(userId);
