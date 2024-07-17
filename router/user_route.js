@@ -10,16 +10,16 @@ export const userRouter = Router();
 
 userRouter.get("/users", getUsers);
 
-userRouter.post("/users/auth/login", login);
+userRouter.post("/users/auth/session/login", login);
 
-userRouter.post("/users/auth/token", login);
+userRouter.post("/users/auth/token/login", login);
 
 userRouter.post("/users/auth/signup", signup);
 
 userRouter.post("/users/auth/updateUser", updateUser);
 
     
-userRouter.get("/users/auth/:userName", getUser);
+userRouter.get("/users/auth/:userName", checkUserSession, getUser);
 
 
 
