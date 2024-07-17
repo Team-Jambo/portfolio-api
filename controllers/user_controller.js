@@ -3,54 +3,6 @@ import { userSchema } from "../schema/user_schema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 
-// export const signup = async (req, res, next) => {
-//     try {
-//         // Validate request body
-//         const { error, value } = userSchema.validate(req.body/*, { abortEarly: false }*/);
-//         if (error) {
-//             return res.status(400).json(error.details[0].message/*.map(d => d.message) }*/);
-//         }
-//         const email = value.email;
-
-//         // Check if user already exists
-//         const existingUser = await User.findOne({ email });
-//         if (existingUser) {
-//             return res.status(400).json({ error: "Email already exists" });
-//         }
-
-//         // Hash the password
-//         // const salt = await bcrypt.genSalt(10);
-//         const hashedPassword = await bcrypt.hash(value.password, 10);
-//         value.password = hashedPassword;
-
-//         //  variable to add a user
-//         const addUser = await User.create(value);
-
-//         req.session.user = {id: addUser.id};
-
-//         return res.status(201).json("Registration successful!");
-
-//         // Create new user
-//         const newUser = new User({
-//             firstName: value.firstName,
-//             lastName: value.lastName,
-//             otherNames: value.otherNames,
-//             email: value.email,
-//             password: hashedPassword,
-//             userName: value.userName,
-//             termsAndConditions: value.termsAndConditions
-//         });
-
-//         await newUser.save();
-
-//         res.status(201).json({ success: true, data: newUser });
-//     } catch (error) {
-//         next(error)
-//     };
-// };
-
-
-// Login controller
 
 
 export const signup = async (req, res) => {
@@ -146,6 +98,7 @@ export const login = async (req, res, next) => {
     }
   };
 
+
 // logout controller
 export const logout = async (req, res, next) => {
     try {
@@ -176,19 +129,19 @@ export const getUser = async (req, res, next) => {
 
             .select("-password")
 
-            .populate({ path: "education", options})
+            // .populate({ path: "education", options})
 
-            .populate("userProfile")
+            // .populate("userProfile")
 
-            .populate("skills")
+            // .populate("skills")
 
-            .populate({ path: "achievements", options: { sort: { date: -1 } } })
+            // .populate({ path: "achievements", options: { sort: { date: -1 } } })
 
-            .populate({ path: "experiences", options })
+            // .populate({ path: "experiences", options })
 
-            .populate({ path: "volunteering", options })
+            // .populate({ path: "volunteering", options })
 
-            .populate({ path: 'projects', options });
+            // .populate({ path: 'projects', options });
 
         if (!userDetails) {
             return res.status(404).json(userDetails);
