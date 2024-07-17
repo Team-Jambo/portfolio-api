@@ -1,7 +1,8 @@
 // import necessary modules
 import express from "express";
+import mongoose from "mongoose";
 import { dbConnection } from "./config/db.js";
-import MongoStore from "connect-mongo"
+import MongoStore from "connect-mongo";
 import userRouter from "./router/user_route.js";
 import cors from "cors";
 import "dotenv/config";
@@ -52,8 +53,8 @@ app.use("/api/v1", userProfileRouter);
 app.use("/api,v1", achievementRouter);
 
 //  user generator
-expressOasGenerator.handleRequests();
-app.use((req, res) => res.redirect("/api-docs"));
+// expressOasGenerator.handleRequests();
+// app.use((req, res) => res.redirect("/api-docs"));
 
 
 
