@@ -14,7 +14,7 @@ levelOfProficiency: {
     ] },
 
     user: {
-        type: Types.ObjectId, ref: 'User'}
+        type: Types.ObjectId, ref: 'User', select:false}
 });
 
 export const Skill= model('Skill', skillsSchema);
