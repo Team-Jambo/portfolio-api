@@ -22,6 +22,14 @@ const app = express();
 app.use(cors({credentials: true, origin: 'http://localhost:3090'}));
 
 
+//  for the swagger ui
+expressOasGenerator.handleResponses(app, {
+  alwaysServeDocs: true,
+  tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
+  mongooseModels: mongoose.modelNames()
+});
+
+
 // instantiate dbconnection
 dbConnection();
 
@@ -48,7 +56,7 @@ app.use("/api/v1", educationRouter);
 app.use("/api/v1", userProfileRouter);
 app.use("/api,v1", achievementRouter);
 
-//  user generator
+//  use generator
 expressOasGenerator.handleRequests();
 app.use((req, res) => res.redirect("/api-docs"));
 
