@@ -13,13 +13,17 @@ import {skillsRouter} from "./router/skills_route.js";
 import { achievementRouter } from "./router/achievement_route.js";
 import userProfileRouter from "./router/profile_route.js";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
-
+import { restartServer } from "./restart_server.js";
 
 
 
 //  instantiate express
 const app = express();
 app.use(cors({credentials: true, origin: 'http://localhost:3090'}));
+
+app.get("/api/v1/health", (req, res) => {
+    res.json({ status: "UP" });
+  });
 
 
 //  for the swagger ui
@@ -60,10 +64,28 @@ app.use("/api,v1", achievementRouter);
 expressOasGenerator.handleRequests();
 app.use((req, res) => res.redirect("/api-docs"));
 
+const reboot = async () => {
+    setInterval(restartServer, process.env.INTERVAL)
+};
+
 
 
 const port = process.env.PORT || 3090;
 
-app.listen(port, () => {
-    console.log(`App is listening on port ${port}`);
-});
+// app.listen(port, () => {
+//     console.log(`App is listening on port ${port}`);
+// });
+
+dbConnection()
+    .then(() => {
+        app.listen(PORT, () => {
+            reboot().then(() => {
+                console.log(`Server Restarted`);
+            });
+            console.log(`App is listening on port ${PORT}`);
+        });
+    })
+    .catch((err) => {
+        console.log(err);
+        process.exit(-1);
+    });
