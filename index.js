@@ -14,6 +14,7 @@ import { achievementRouter } from "./router/achievement_route.js";
 import userProfileRouter from "./router/profile_route.js";
 import expressOasGenerator from "@mickeymond/express-oas-generator";
 import { restartServer } from "./restart_server.js";
+import mongoose from "mongoose";
 
 
 
