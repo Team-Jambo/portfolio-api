@@ -50,7 +50,7 @@ export const postSkills = async (req, res, next) => {
       return res.status(400).send(error.details[0].message)
     }
 
-    const userSessionId = req.session.user.id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await User.findById(userSessionId);
 
     if (!user) {

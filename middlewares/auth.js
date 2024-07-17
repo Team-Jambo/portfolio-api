@@ -7,20 +7,23 @@ export const checkUserSession = (req, res, next) => {
     if (req.session.user) {
         next()
     } else if (req.headers.authorization) {
-        // Extract token from headers
-        const token = req.headers.authorization.split(' ')[1];
-
-
-        // verify the token to get user
-        const user = jwt.verify(token, precess.env.JWT_PRIVATE_KEY);
-
-        // Append user to request
-        req.user = user;
-
-        // call next function
-        next();
-        res.json(token);
-
+       try {
+         // Extract token from headers
+         const token = req.headers.authorization.split(' ')[1];
+ 
+ 
+         // verify the token to get user
+         const user = jwt.verify(token, process.env.JWT_PRIVATE_KEY);
+ 
+         // Append user to request
+         req.user = user;
+ 
+         // call next function
+         next();
+         res.json(token);
+       } catch (error) {
+    
+       }
 
     } else {
         res.status(401).json('User not authenticated');
