@@ -30,7 +30,7 @@ app.get("/api/v1/health", (req, res) => {
 //  for the swagger ui
 expressOasGenerator.handleResponses(app, {
   alwaysServeDocs: true,
-  tags: ["achievements", "user", "userProfile", "education", "experience", "volunteer", "skills", "project"],
+  tags: ["achievements", "userProfile", "education", "experience", "volunteer", "skills", "project"],
   mongooseModels: mongoose.modelNames()
 });
 
