@@ -71,7 +71,7 @@ const reboot = async () => {
 
 
 
-const port = process.env.PORT || 3090;
+const PORT = process.env.PORT || 3090;
 
 // app.listen(port, () => {
 //     console.log(`App is listening on port ${port}`);
