@@ -20,7 +20,7 @@ import mongoose from "mongoose";
 
 //  instantiate express
 const app = express();
-app.use(cors({ credentials: true, origin: 'http://localhost:3090' }));
+app.use(cors({ credentials: true, origin: '*' }));
 
 app.get("/api/v1/health", (req, res) => {
   res.json({ status: "UP" });
