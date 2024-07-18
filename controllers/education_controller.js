@@ -29,7 +29,7 @@ export const addEducation = async (req, res, next) => {
     await user.save();
 
     //return the education
-    res.status(201).json({education})
+    res.status(201).json({message:"Education has been added.",education})
 
    } catch (error) {
     next(error)
@@ -96,7 +96,7 @@ export const updateEducation = async (req, res, next) => {
         return res.status(404).send('Education not found');
       }
   
-      res.status(200).json({ education: updatedEducation });
+      res.status(200).json({ message:"Education has been updated" ,updatedEducation });
     } catch (error) {
      next(error)
     }

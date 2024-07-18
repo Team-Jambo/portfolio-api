@@ -63,7 +63,7 @@ export const postSkills = async (req, res, next) => {
 
     await user.save();
 
-    res.status(201).json(skill);
+    res.status(201).json({message:"Skill has been added", skill});
   } catch (error) {
     next(error)
     // return res.status(500).send(error)
@@ -84,7 +84,7 @@ export const patchSkills = async (req, res, next) => {
     const updateSkills = await Skill.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
     //return response
-    res.status(200).json(updateSkills);
+    res.status(200).json({message:"Skill has been updated", updateSkills});
   } catch (error) {
     next(error);
   }
