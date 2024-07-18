@@ -9,9 +9,10 @@ export const getAchievements = async (req, res, next) => {
     //we are fetching achievements that belongs to a particular user
     const userSessionId = req.session.user.id
     const getAllAchievements = await Achievement.find({ user: userSessionId })
-    if (getAllAchievements.length == 0) {
-      res.status(404).send(getAllAchievements)
-    }
+    
+    // if (getAllAchievements.length == 0) {
+    //   res.status(404).send(getAllAchievements)
+    // }
 
     //Return response
     res.status(200).json(getAllAchievements);

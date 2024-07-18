@@ -9,9 +9,9 @@ export const getExperiences = async (req, res, next) => {
         //we are fetching workExperiences that belongs to a particular user
         const userId = req.params.id
         const allExperiences = await Experience.find({user: userId})
-    if(allExperiences.length == 0){
-        return res.status(404).send(allExperiences)
-    }
+    // if(allExperiences.length == 0){
+    //     return res.status(404).send(allExperiences)
+    // }
     res.status(200).json({workExperience: allExperiences});
     } catch (error) {
         next(error)

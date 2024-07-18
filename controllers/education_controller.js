@@ -47,9 +47,10 @@ export const getAllEducation = async (req, res, next) => {
         //we are fetching education that belongs to a particular user
         const userId = req.params.id
         const alleducation = await Education.find({user: userId})
-    if(alleducation.length == 0){
-        return res.status(404).send(alleducation)
-    }
+        
+    // if(alleducation.length == 0){
+    //     return res.status(404).send(alleducation)
+    // }
     res.status(200).json({education:alleducation})
     } catch (error) {
         next(error)
