@@ -8,12 +8,12 @@ import { volunteeringSchema } from "../schema/volunteer_schema.js";
       
 export const getAllVolunteers = async (req, res, next) => {
     try {
-        const userId = req.params.id
+        const userId = req.session?.user?.id || req?.user.id;
         const allvolunteers = await Volunteering.find({user: userId});
         if (allvolunteers.length == 0) {
             return res.status(404).send(allvolunteers);
         }
-    res.status(200).json({ contact: allvolunteers });
+    res.status(200).json(allvolunteers);
   } catch (error) {
     next(error)
     // return res.status(500).send(error);
@@ -30,7 +30,7 @@ export const postVolunteer = async (req, res, next) => {
     };
 
     //create volunteer with the value
-    const volunteer = await Volunteering.create(value)
+    // const volunteer = await Volunteering.create(value)
 
     //after, find the user with the id that you passed when creating the volunteer 
     const userId = req.session?.user?.id || req?.user?.id;
@@ -39,14 +39,18 @@ export const postVolunteer = async (req, res, next) => {
       return res.status(404).send('User not found');
     }
 
+    const volunteering = await Volunteering.create({
+      ...value,
+      user: userId,
+    });
     //if you find the user, push the volunteer id you just created inside
-    user.volunteer.push(volunteer._id);
+    user.volunteering.push(volunteering.id);
 
     //and save the user now with the volunteerId
     await user.save();
 
     //return the volunteer
-    res.status(201).json({ message:"Volunteer work has been added",volunteer });
+    res.status(201).json({ message:"Volunteer work has been added",volunteering });
   } catch (error) {
     next(error)
     // return res.status(500).send(error);
