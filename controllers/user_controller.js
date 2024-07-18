@@ -148,6 +148,7 @@ export const token = async (req, res, next) => {
 
 
 
+
 // logout controller
 export const logout = async (req, res, next) => {
   try {
@@ -163,6 +164,7 @@ export const logout = async (req, res, next) => {
     next(error);
   }
 };
+
 
 
 
@@ -205,6 +207,8 @@ export const getUser = async (req, res, next) => {
 };
 
 
+
+
 export const getUsers = async (req, res, next) => {
   try {
 
@@ -230,6 +234,9 @@ export const getUsers = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
 
 export const updateUser = async (req, res, next) => {
   try {

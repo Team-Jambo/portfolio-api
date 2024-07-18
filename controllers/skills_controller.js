@@ -59,7 +59,7 @@ export const postSkills = async (req, res, next) => {
 
     const skill = await Skill.create({ ...value, user: userSessionId });
 
-    user.skill.push(skill.id)
+    user.skills.push(skill.id)
 
     await user.save();
 
