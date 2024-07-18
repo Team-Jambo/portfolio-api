@@ -1,4 +1,5 @@
 import { Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json";
 
 
 // create new Schema
@@ -28,8 +29,10 @@ const educationSchema = new Schema({
     },
 
     user: {
-        type: Types.ObjectId, ref: 'User'}
+        type: Types.ObjectId, ref: 'User'
+    }
 
 });
 
+educationSchema.plugin(toJSON)
 export const Education = model('EducationAndTraining', educationSchema);

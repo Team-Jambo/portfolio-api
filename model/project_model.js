@@ -1,4 +1,6 @@
 import { Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json";
+
 
 // create new schema
 
@@ -14,4 +16,5 @@ const projectSchema = new Schema ({
     image: {type: String}
 });
 
+projectSchema.plugin(toJSON);
 export const Project = model('Project', projectSchema);
