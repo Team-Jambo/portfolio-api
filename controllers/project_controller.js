@@ -4,7 +4,7 @@ import { projectSchema } from "../schema/project_schema.js";
 
 
 //  defining routes to get projects, create projects and find projects by id
-export const getAllProjects = async (req, res) => {
+export const getAllProjects = async (req, res, next) => {
     try {
         //we are fetching projects that belongs to a particular user
         const userId = req.params.id
@@ -14,12 +14,13 @@ export const getAllProjects = async (req, res) => {
     }
     res.status(200).json({project: allprojects});
     } catch (error) {
-        return res.status(500).send(error);
+        next(error)
+        // return res.status(500).send(error);
     }
 };
 
 
-export const postProject = async (req, res) => {
+export const postProject = async (req, res, next) => {
     try {
         const { error, value } = projectSchema.validate({
           ...req.body,
@@ -45,24 +46,29 @@ export const postProject = async (req, res) => {
         //return the project
         res.status(201).json({project});
     } catch (error) {
-        console.error("Can't add project: ", error);
-        return res.status(500).send(error);
+        next(error)
+        // console.error("Can't add project: ", error);
+        // return res.status(500).send(error);
     }
 };
 
-export const getOneProject = async (req, res) => {
+
+
+
+export const getOneProject = async (req, res, next) => {
 
     try {
         const project = await Project.findById(req.params.id);
         res.status(200).json(project);
     } catch (error) {
-        return res.status(500).send(error);
+        next(error)
+        // return res.status(500).send(error);
     }
 
 };
 
 
-export const updateProject = async (req, res) => {
+export const updateProject = async (req, res, next) => {
     try {
         const { error, value } = projectSchema.validate(req.body);
         if (error) {
@@ -81,13 +87,14 @@ export const updateProject = async (req, res) => {
 
         res.status(200).json({ project: updatedProject });
     } catch (error) {
-        console.error("Project update error!: ", error);
-        res.status(500).send(error.message);
+        next(error)
+        // console.error("Project update error!: ", error);
+        // res.status(500).send(error.message);
     }
 };
 
 
-export const deleteProject = async (req, res) => {
+export const deleteProject = async (req, res, next) => {
     try {
         const deletedProject = await Project.findByIdAndDelete(req.params.projectId);
 
@@ -104,8 +111,9 @@ export const deleteProject = async (req, res) => {
 
         res.status(200).json({ project: deletedProject });
     } catch (error) {
-        console.error("Project deletion error: ", error);
-        res.status(500).send(error.message);
+        next(error)
+        // console.error("Project deletion error: ", error);
+        // res.status(500).send(error.message);
     }
 };
 

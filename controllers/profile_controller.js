@@ -4,7 +4,7 @@ import { userProfileSchema } from "../schema/profile_schema.js";
 
 
 // Create user profile
-export const createUserProfile = async (req, res) => {
+export const createUserProfile = async (req, res, next) => {
     try {
       const { error, value } = userProfileSchema.validate({
         ...req.body,
@@ -34,14 +34,15 @@ export const createUserProfile = async (req, res) => {
       res.status(201).json({ userProfile });
   
     } catch (error) {
-      console.error('Error adding/updating user profile:', error);
-      res.status(500).send(error.message);
+      // console.error('Error adding/updating user profile:', error);
+      // res.status(500).send(error.message);
+      next(error)
     }
   };
 
 
   // controller to get user profiles
-export const getUserProfile = async (req, res) => {
+export const getUserProfile = async (req, res, next) => {
     try {
       const allUserProfiles = await userProfile.find();
       if (allUserProfiles.length === 0) {
@@ -49,8 +50,9 @@ export const getUserProfile = async (req, res) => {
       }
       res.status(200).json({ userProfiles: allUserProfiles });
     } catch (error) {
-      console.error('Error fetching user profiles:', error);
-      res.status(500).send(error.message);
+      // console.error('Error fetching user profiles:', error);
+      // res.status(500).send(error.message);
+      next(error)
     }
   };
 
@@ -69,7 +71,7 @@ export const getUserProfile = async (req, res) => {
   // };
 
 
-  export const updateProfile = async (req, res) => {
+  export const updateProfile = async (req, res, next) => {
     try {
       const { error, value } = userProfileSchema.validate(req.body);
       if (error) {
@@ -88,14 +90,15 @@ export const getUserProfile = async (req, res) => {
   
       res.status(200).json({ userProfile: updatedProfile });
     } catch (error) {
-      console.error('Error updating user profile:', error);
-      res.status(500).send(error.message);
+      next(error)
+      // console.error('Error updating user profile:', error);
+      // res.status(500).send(error.message);
     }
   };
 
 
   // Delete a profile
-export const deleteProfile = async (req, res) => {
+export const deleteProfile = async (req, res, next) => {
     try {
       const deletedProfile = await userProfile.findByIdAndDelete(req.params.userProfileId);
   
@@ -112,8 +115,9 @@ export const deleteProfile = async (req, res) => {
   
       res.status(200).json({ userProfile: deletedProfile });
     } catch (error) {
-      console.error('Error deleting user profile:', error);
-      res.status(500).send(error.message);
+      next(error)
+      // console.error('Error deleting user profile:', error);
+      // res.status(500).send(error.message);
     }
   };
   

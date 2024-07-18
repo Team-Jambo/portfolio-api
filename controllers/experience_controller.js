@@ -4,7 +4,7 @@ import { experienceSchema } from "../schema/experience_schema.js";
 
 
 //  defining routes to get experiences, create experiences and find experiences by id
-export const getExperiences = async (req, res) => {
+export const getExperiences = async (req, res, next) => {
     try {
         //we are fetching workExperiences that belongs to a particular user
         const userId = req.params.id
@@ -14,12 +14,12 @@ export const getExperiences = async (req, res) => {
     }
     res.status(200).json({workExperience: allExperiences});
     } catch (error) {
-        return res.status(500).send(error);
+        next(error)
     }
 };
 
 
-export const addExperience = async (req, res) => {
+export const addExperience = async (req, res, next) => {
     try {
         const {error, value} = experienceSchema.validate(req.body);
         if(error){
@@ -47,24 +47,28 @@ export const addExperience = async (req, res) => {
         //return the workExperience
         res.status(201).json({newExperience});
     } catch (error) {
-        return res.status(500).send(error); /* yu can cnsole log abve too*/
+        next(error)
     }
 };
 
-export const getOneWorkExperience = async (req, res) => {
+
+
+export const getOneWorkExperience = async (req, res, next) => {
 
     try {
         const workExperience = await Experience.findById(req.params.id);
         res.status(200).json(workExperience);
     } catch (error) {
-        return res.status(500).send(error);
+        next(error)
     }
 
 };
 
 
-// controoller to update a work experience
-export const updateExperience = async (req, res) => {
+
+
+// controller to update a work experience
+export const updateExperience = async (req, res, next) => {
     try {
         const { error, value } = experienceSchema.validate(req.body);
         if (error) {
@@ -83,14 +87,13 @@ export const updateExperience = async (req, res) => {
 
         res.status(200).json({ experience: updatedExperience });
     } catch (error) {
-        console.error("Experience update error!: ", error); /* console logging this can optionlly be ignored*/
-        res.status(500).send(error.message);
+       next(error)
     }
 };
 
 
 //  controller to delete an experience
-export const deleteExperience = async (req, res) => {
+export const deleteExperience = async (req, res, next) => {
     try {
         const deletedExperience = await Experience.findByIdAndDelete(req.params.experienceId);
 
@@ -107,7 +110,6 @@ export const deleteExperience = async (req, res) => {
 
         res.status(200).json({ experience: deletedExperience });
     } catch (error) {
-        console.error("Experience deletion error: ", error);
-        res.status(500).send(error.message);
+        next(error)
     }
 };
