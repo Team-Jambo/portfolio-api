@@ -45,9 +45,10 @@ export const createUserProfile = async (req, res, next) => {
 export const getUserProfile = async (req, res, next) => {
     try {
       const allUserProfiles = await userProfile.find();
-      if (allUserProfiles.length === 0) {
-        return res.status(404).send(allUserProfiles);
-      }
+      
+      // if (allUserProfiles.length === 0) {
+      //   return res.status(404).send(allUserProfiles);
+      // }
       res.status(200).json({ userProfiles: allUserProfiles });
     } catch (error) {
       // console.error('Error fetching user profiles:', error);

@@ -9,9 +9,9 @@ export const getAllProjects = async (req, res, next) => {
         //we are fetching projects that belongs to a particular user
         const userId = req.params.id
         const allprojects = await Project.find({user: userId})
-    if(allprojects.length == 0){
-        return res.status(404).send(allprojects);
-    }
+    // if(allprojects.length == 0){
+    //     return res.status(404).send(allprojects);
+    // }
     res.status(200).json({project: allprojects});
     } catch (error) {
         next(error)
