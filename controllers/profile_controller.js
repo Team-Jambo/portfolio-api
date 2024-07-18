@@ -31,7 +31,7 @@ export const createUserProfile = async (req, res, next) => {
       await user.save();
   
       // Return the user profile
-      res.status(201).json({ userProfile });
+      res.status(201).json({ message:"Profile has been added.",userProfile });
   
     } catch (error) {
       // console.error('Error adding/updating user profile:', error);
@@ -88,7 +88,7 @@ export const getUserProfile = async (req, res, next) => {
         return res.status(404).send('User profile not found');
       }
   
-      res.status(200).json({ userProfile: updatedProfile });
+      res.status(200).json({ message:"Profile has been updated.", updatedProfile });
     } catch (error) {
       next(error)
       // console.error('Error updating user profile:', error);

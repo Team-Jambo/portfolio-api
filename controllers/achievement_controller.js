@@ -58,7 +58,7 @@ export const postAchievement = async (req, res, next) => {
     user.achievements.push(newAchievement._id)
     await user.save();
 
-    res.status(201).json(newAchievement)
+    res.status(201).json({message:"Achievement has been added.",newAchievement})
   } catch (error) {
     next(console.error('error'));
   }
@@ -93,7 +93,7 @@ export const patchAchievements = async (req, res, next) => {
     }
 
     //return response
-    res.status(200).json(updateAchievement);
+    res.status(200).json({message:"Achievement has been updated.",updateAchievement});
   } catch (error) {
     next(error);
   }

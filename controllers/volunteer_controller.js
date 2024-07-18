@@ -46,7 +46,7 @@ export const postVolunteer = async (req, res, next) => {
     await user.save();
 
     //return the volunteer
-    res.status(201).json({ volunteer });
+    res.status(201).json({ message:"Volunteer work has been added",volunteer });
   } catch (error) {
     next(error)
     // return res.status(500).send(error);
@@ -90,7 +90,7 @@ export const updateVolunteer = async (req, res, next) => {
       return res.status(404).send('Volunteer not found');
     }
 
-    res.status(201).json({ volunteer: updatedVolunteer });
+    res.status(201).json({ message: "Volunteer work has been updated", updatedVolunteer });
   } catch (error) {
     next(error)
     // return res.status(500).send(error.message);
