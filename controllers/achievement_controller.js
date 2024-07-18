@@ -118,8 +118,8 @@ export const deleteAchievements = async (req, res, next) => {
     //return response
     res.status(200).json("Achievement deleted")
   } catch (error) {
-    return res.status(500).json({ error })
-  }
+next(error)  
+}
 };
 
 

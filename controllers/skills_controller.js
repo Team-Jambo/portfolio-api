@@ -42,7 +42,7 @@ export const getSkill = async (req, res, next) => {
 
 
 //Post a skill
-export const postSkills = async (req, res) => {
+export const postSkills = async (req, res, next) => {
   try {
     const { error, value } = skillsSchema.validate({...req.body})
 
@@ -59,13 +59,14 @@ export const postSkills = async (req, res) => {
 
     const skill = await Skill.create({ ...value, user: userSessionId });
 
-    user.skill.push(skill._id)
+    user.skill.push(skill.id)
 
     await user.save();
 
     res.status(201).json(skill);
   } catch (error) {
-    return res.status(500).send(error)
+    next(error)
+    // return res.status(500).send(error)
   }
 };
 

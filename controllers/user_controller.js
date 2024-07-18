@@ -53,7 +53,7 @@ import jwt from "jsonwebtoken"
 // Login controller
 
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   const { error, value } = userSchema.validate(req.body);
   if (error) {
     return res.status(400).send(error.details[0].message);
@@ -143,10 +143,11 @@ export const token = async (req, res, next) => {
     }
 
   } catch (error) {
-    console.log(error)
     next(error);
   }
 };
+
+
 
 // logout controller
 export const logout = async (req, res, next) => {
@@ -163,6 +164,8 @@ export const logout = async (req, res, next) => {
     next(error);
   }
 };
+
+
 
 export const getUser = async (req, res, next) => {
   try {
@@ -201,6 +204,7 @@ export const getUser = async (req, res, next) => {
     next(error);
   }
 };
+
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -265,6 +269,9 @@ export const updateUser = async (req, res, next) => {
     next(error);
   }
 };
+
+
+
 
 export const deleteUser = async (req, res, next) => {
   try {

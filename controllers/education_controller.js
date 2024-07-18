@@ -3,7 +3,7 @@ import { Education } from "../model/education_model.js";
 import { User } from "../model/user_model.js";
 import { educationSchema } from "../schema/education_schema.js";
 
-export const addEducation = async (req, res) => {
+export const addEducation = async (req, res, next) => {
 
    try {
     const {error, value} = educationSchema.validate(req.body)
@@ -32,7 +32,7 @@ export const addEducation = async (req, res) => {
     res.status(201).json({education})
 
    } catch (error) {
-    return res.status(500).send(error)
+    next(error)
    }
 
 
@@ -41,7 +41,7 @@ export const addEducation = async (req, res) => {
 
 
 
-export const getAllEducation = async (req, res) => {
+export const getAllEducation = async (req, res, next) => {
 
     try {
         //we are fetching education that belongs to a particular user
@@ -52,12 +52,15 @@ export const getAllEducation = async (req, res) => {
     }
     res.status(200).json({education:alleducation})
     } catch (error) {
-        
+        next(error)
     }
 
 }
 
-export const getOneEducation = async (req, res) => {
+
+
+
+export const getOneEducation = async (req, res, next) => {
 
     try {
         const education = await Education.findById(req.params.id)
@@ -67,14 +70,15 @@ export const getOneEducation = async (req, res) => {
       
           res.status(200).json({ education });
     } catch (error) {
-        console.error('Error fetching education:', error);
-    res.status(500).send(error.message);
+        next(error)
     }
 
 };
 
 
-export const updateEducation = async (req, res) => {
+
+
+export const updateEducation = async (req, res, next) => {
     try {
       const { error, value } = educationSchema.validate(req.body);
       if (error) {
@@ -93,13 +97,12 @@ export const updateEducation = async (req, res) => {
   
       res.status(200).json({ education: updatedEducation });
     } catch (error) {
-      console.error('Error updating education:', error);
-      res.status(500).send(error.message);
+     next(error)
     }
   }; 
 
 
-  export const deleteEducation = async (req, res) => {
+  export const deleteEducation = async (req, res, next) => {
     try {
       const deletedEducation = await Education.findByIdAndDelete(req.params.educationId);
   
@@ -116,7 +119,6 @@ export const updateEducation = async (req, res) => {
   
       res.status(200).json({ message: 'Education deleted successfully', education: deletedEducation });
     } catch (error) {
-      console.error('Error deleting education:', error);
-      res.status(500).send(error.message);
+     next(error)
     }
   };
