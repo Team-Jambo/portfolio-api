@@ -9,7 +9,7 @@ export const getAllVolunteers = async (req, res) => {
         const userId = req.params.id
         const allvolunteers = await Volunteering.find({user: userId});
         if (allvolunteers.length == 0) {
-            return res.status(404).send("No volunteer added!");
+            return res.status(404).send(allvolunteers);
         }
         res.status(200).json({contact: allvolunteers});
     } catch (error) {
@@ -52,7 +52,7 @@ export const getOneVolunteer = async (req, res) => {
     try {
         const volunteer = await Volunteering.findById(req.params.id);
         if (!volunteer) {
-            return res.status(404).send('Volunteer not found');
+            return res.status(404).send(volunteer);
         }
         //  return volunteer
         res.status(200).json(volunteer);

@@ -14,7 +14,7 @@ export const getSkills = async (req, res, next) => {
     if (allSkills.length == 0) {
 
       //Return all skills as response 
-      res.status(404).send("No skills added")
+      res.status(404).send(allSkills)
     }
     res.status(200).json(allSkills)
   } catch (error) {
