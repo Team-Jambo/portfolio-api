@@ -8,7 +8,7 @@ import { skillsSchema } from "../schema/skills_schema.js"
 export const getSkills = async (req, res, next) => {
   try {
     //we are fetching education that belongs to a particular user
-    const userSessionId = req.session.user.id
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     //Get all skills from database
     const allSkills = await Skill.find({ user: userSessionId })
     // if (allSkills.length == 0) {
@@ -96,7 +96,7 @@ export const patchSkills = async (req, res, next) => {
 export const deleteSkills = async (req, res, next) => {
   try {
 
-    const userSessionId = re.session.id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await User.findById(userSessionId);
     if (!user) {
       return res.status(404).send("User not found")
