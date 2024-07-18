@@ -2,7 +2,7 @@ import axios from "axios";
 
 const PORT = process.env.PORT || 3090;
 
-const healthCheckUrl = 'http://localhost:${PORT}/api/v1/health'; // Replace with your actual health endpoint URL
+const healthCheckUrl = `http://localhost:${PORT}/api/v1/health`; // Replace with your actual health endpoint URL
 
 export const restartServer = async () => {
     try {
