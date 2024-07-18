@@ -4,12 +4,25 @@ import { volunteeringSchema } from "../schema/volunteer_schema.js";
 
 
 
+
 export const getAllVolunteers = async (req, res, next) => {
   try {
     const userId = req.params.id
     const allvolunteers = await Volunteering.find({ user: userId });
     if (allvolunteers.length == 0) {
-      return res.status(404).send("No volunteer added!");
+      return res.status(404).send("No volunteer added!")
+      
+      
+export const getAllVolunteers = async (req, res) => {
+    try {
+        const userId = req.params.id
+        const allvolunteers = await Volunteering.find({user: userId});
+        if (allvolunteers.length == 0) {
+            return res.status(404).send(allvolunteers);
+        }
+        res.status(200).json({contact: allvolunteers});
+    } catch (error) {
+        return res.status(500).send(error);
     }
     res.status(200).json({ contact: allvolunteers });
   } catch (error) {
@@ -18,6 +31,8 @@ export const getAllVolunteers = async (req, res, next) => {
   }
 };
 
+    
+    
 export const postVolunteer = async (req, res, next) => {
   try {
     const { error, value } = volunteeringSchema.validate(req.body);
@@ -57,6 +72,19 @@ export const getOneVolunteer = async (req, res, next) => {
     const volunteer = await Volunteering.findById(req.params.id);
     if (!volunteer) {
       return res.status(404).send('Volunteer not found');
+
+      
+export const getOneVolunteer = async (req, res) => {
+
+    try {
+        const volunteer = await Volunteering.findById(req.params.id);
+        if (!volunteer) {
+            return res.status(404).send(volunteer);
+        }
+        //  return volunteer
+        res.status(200).json(volunteer);
+    } catch (error) {
+        return res.status(500).send(error);
     }
     //  return volunteer
     res.status(200).json(volunteer);
