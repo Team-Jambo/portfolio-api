@@ -103,6 +103,8 @@ export const updateEducation = async (req, res, next) => {
   }; 
 
 
+
+  
   export const deleteEducation = async (req, res, next) => {
     try {
       const deletedEducation = await Education.findByIdAndDelete(req.params.educationId);

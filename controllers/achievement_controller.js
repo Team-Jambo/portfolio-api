@@ -1,5 +1,5 @@
 import { Achievement } from "../model/achievement_model.js";
-import { achievementSchema} from "../schema/achievement_schema.js";
+import { achievementSchema } from "../schema/achievement_schema.js";
 import { User } from "../model/user_model.js";
 
 
@@ -9,10 +9,6 @@ export const getAchievements = async (req, res, next) => {
     //we are fetching achievements that belongs to a particular user
     const userSessionId = req.session.user.id
     const getAllAchievements = await Achievement.find({ user: userSessionId })
-    
-    // if (getAllAchievements.length == 0) {
-    //   res.status(404).send(getAllAchievements)
-    // }
 
     //Return response
     res.status(200).json(getAllAchievements);
@@ -20,6 +16,8 @@ export const getAchievements = async (req, res, next) => {
     next(error);
   }
 };
+
+
 
 
 //Get one achievement
@@ -38,12 +36,12 @@ export const getAchievement = async (req, res, next) => {
 
 
 
+
 //Post an achievement
 export const postAchievement = async (req, res, next) => {
   try {
     const { error, value } = achievementSchema.validate({
       ...req.body,
-      // award: req.file.award[0].filename,
       image: req.file.filename,
     });
 
@@ -59,7 +57,7 @@ export const postAchievement = async (req, res, next) => {
     user.achievements.push(newAchievement._id)
     await user.save();
 
-    res.status(201).json({message:"Achievement has been added.",newAchievement})
+    res.status(201).json({ message: "Achievement has been added.", newAchievement })
   } catch (error) {
     next(console.error('error'));
   }
@@ -94,11 +92,12 @@ export const patchAchievements = async (req, res, next) => {
     }
 
     //return response
-    res.status(200).json({message:"Achievement has been updated.",updateAchievement});
+    res.status(200).json({ message: "Achievement has been updated.", updateAchievement });
   } catch (error) {
     next(error);
   }
 };
+
 
 
 
@@ -119,8 +118,8 @@ export const deleteAchievements = async (req, res, next) => {
     //return response
     res.status(200).json("Achievement deleted")
   } catch (error) {
-next(error)  
-}
+    next(error)
+  }
 };
 
 
