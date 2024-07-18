@@ -11,11 +11,11 @@ export const getSkills = async (req, res, next) => {
     const userSessionId = req.session.user.id
     //Get all skills from database
     const allSkills = await Skill.find({ user: userSessionId })
-    if (allSkills.length == 0) {
+    // if (allSkills.length == 0) {
 
-      //Return all skills as response 
-      res.status(404).send(allSkills)
-    }
+    //   //Return all skills as response 
+    //   res.status(404).send(allSkills)
+    // }
     res.status(200).json(allSkills)
   } catch (error) {
     next(error);

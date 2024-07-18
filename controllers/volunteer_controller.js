@@ -10,9 +10,9 @@ export const getAllVolunteers = async (req, res, next) => {
     try {
         const userId = req.params.id
         const allvolunteers = await Volunteering.find({user: userId});
-        if (allvolunteers.length == 0) {
-            return res.status(404).send(allvolunteers);
-        }
+        // if (allvolunteers.length == 0) {
+        //     return res.status(404).send(allvolunteers);
+        // }
     res.status(200).json({ contact: allvolunteers });
   } catch (error) {
     next(error)
