@@ -45,7 +45,7 @@ export const getUserProfile = async (req, res) => {
     try {
       const allUserProfiles = await userProfile.find();
       if (allUserProfiles.length === 0) {
-        return res.status(404).send('No user profiles found');
+        return res.status(404).send(allUserProfiles);
       }
       res.status(200).json({ userProfiles: allUserProfiles });
     } catch (error) {

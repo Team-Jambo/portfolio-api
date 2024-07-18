@@ -10,7 +10,7 @@ export const getAchievements = async (req, res, next) => {
     const userSessionId = req.session.user.id
     const getAllAchievements = await Achievement.find({ user: userSessionId })
     if (getAllAchievements.length == 0) {
-      res.status(404).send("No achievement added")
+      res.status(404).send(getAllAchievements)
     }
 
     //Return response
@@ -72,16 +72,14 @@ export const postAchievement = async (req, res, next) => {
 export const patchAchievements = async (req, res, next) => {
   try {
     const { error, value } = achievementSchema.validate({
-      ...req.body,
-      award: req.files.award[0].filename,
-      image: req.files.image[0].filename
+      ...req.body
     });
 
     if (error) {
       return res.status(400).send(error.details[0].message);
     }
 
-    const userSessionId = req.session.use.id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await User.findById(userSessionId);
     if (!user) {
       return res.status(404).send("User not found");
@@ -106,7 +104,7 @@ export const patchAchievements = async (req, res, next) => {
 //Delete an achievement
 export const deleteAchievements = async (req, res, next) => {
   try {
-    const userSessionId = req.session.user.id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
     const user = await User.findById(userSessionId);
 
     if (!user) {

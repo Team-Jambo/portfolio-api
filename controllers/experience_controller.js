@@ -10,7 +10,7 @@ export const getExperiences = async (req, res) => {
         const userId = req.params.id
         const allExperiences = await Experience.find({user: userId})
     if(allExperiences.length == 0){
-        return res.status(404).send('No work experience added')
+        return res.status(404).send(allExperiences)
     }
     res.status(200).json({workExperience: allExperiences});
     } catch (error) {
