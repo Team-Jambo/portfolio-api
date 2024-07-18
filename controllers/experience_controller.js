@@ -45,7 +45,7 @@ export const addExperience = async (req, res, next) => {
         await user.save();
 
         //return the workExperience
-        res.status(201).json({newExperience});
+        res.status(201).json({message:"New Experience Added",newExperience});
     } catch (error) {
         next(error)
     }
@@ -85,7 +85,7 @@ export const updateExperience = async (req, res, next) => {
             return res.status(404).send("Experience not found");
         }
 
-        res.status(200).json({ experience: updatedExperience });
+        res.status(200).json({ message:"Experience Updated", updatedExperience });
     } catch (error) {
        next(error)
     }

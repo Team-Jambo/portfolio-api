@@ -44,7 +44,7 @@ export const postProject = async (req, res, next) => {
         await user.save();
 
         //return the project
-        res.status(201).json({project});
+        res.status(201).json({message:"Project Added", newProject});
     } catch (error) {
         next(error)
         // console.error("Can't add project: ", error);
@@ -85,7 +85,7 @@ export const updateProject = async (req, res, next) => {
             return res.status(404).send("Project not found");
         }
 
-        res.status(200).json({ project: updatedProject });
+        res.status(200).json({ message:"Project Updated", updatedProject });
     } catch (error) {
         next(error)
         // console.error("Project update error!: ", error);

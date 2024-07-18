@@ -3,6 +3,9 @@ import { Education } from "../model/education_model.js";
 import { User } from "../model/user_model.js";
 import { educationSchema } from "../schema/education_schema.js";
 
+
+
+
 export const addEducation = async (req, res, next) => {
 
    try {
@@ -29,7 +32,7 @@ export const addEducation = async (req, res, next) => {
     await user.save();
 
     //return the education
-    res.status(201).json({education})
+    res.status(201).json({message:"Education added", education})
 
    } catch (error) {
     next(error)
@@ -96,7 +99,7 @@ export const updateEducation = async (req, res, next) => {
         return res.status(404).send('Education not found');
       }
   
-      res.status(200).json({ education: updatedEducation });
+      res.status(200).json({message:'Education updated', updatedEducation });
     } catch (error) {
      next(error)
     }
