@@ -51,7 +51,7 @@ export const postVolunteer = async (req, res, next) => {
       user: userId,
     });
     //if you find the user, push the volunteer id you just created inside
-    user.volunteer.push(volunteer._id);
+    user.volunteering.push(volunteering._id);
 
     //and save the user now with the volunteerId
     await user.save();
