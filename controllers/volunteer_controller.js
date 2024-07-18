@@ -40,7 +40,7 @@ export const postVolunteer = async (req, res, next) => {
     }
 
     //if you find the user, push the volunteer id you just created inside
-    user.volunteer.push(volunteer._id);
+    user.volunteering.push(volunteer._id);
 
     //and save the user now with the volunteerId
     await user.save();
@@ -111,7 +111,7 @@ export const deleteVolunteer = async (req, res, next) => {
     // Remove volunteer from user
     const user = await User.findById(deletedVolunteer.user);
     if (user) {
-      user.volunteer = user.volunteer.filter(volunteerId => volunteerId.toString() !== req.params.volunteerId);
+      user.volunteering = user.volunteering.filter(volunteerId => volunteerId.toString() !== req.params.volunteerId);
       await user.save();
     }
 

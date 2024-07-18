@@ -39,7 +39,7 @@ export const addExperience = async (req, res, next) => {
         }
        
         //if you find the user, push the workExperience id you just created inside
-        user.workExperience.push(newExperience._id);
+        user.experiences.push(newExperience._id);
 
         //and save the user now with the workExperienceId
         await user.save();
