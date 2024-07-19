@@ -27,8 +27,9 @@ export const postProject = async (req, res, next) => {
           image: req.file.filename,
         });
 
-        //create project with the value
-        const newProject = await Project.create(value);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
 
         //after, find the user with the id that you passed when creating the project 
         const userId = req.session?.user?.id || req?.user?.id;
@@ -36,6 +37,9 @@ export const postProject = async (req, res, next) => {
         if (!user) {
             return res.status(404).send('User not found');
         }
+        
+        //create project with the value
+        const newProject = await Project.create({...value, user: userId});
         
         //if you find the user, push the project id you just created inside
         user.projects.push(newProject._id);

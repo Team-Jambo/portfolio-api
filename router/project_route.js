@@ -7,23 +7,16 @@ import { remoteUpload } from "../middlewares/uploads.js";
 export const projectRouter = Router();
 
 // define all possible routes to be used
-projectRouter.post( '/users/projects', remoteUpload.fields([
-    { name: "image", maxCount: 1 },
-  ]),
-  checkUserSession,
-  postProject
-);
+projectRouter.post( '/users/projects', checkUserSession, remoteUpload.single('image'), postProject);
 
 projectRouter.get("/users/projects", getAllProjects);
 projectRouter.get("/users/projects/projectId", getOneProject);
 
 projectRouter.patch(
     "/users/projects/projectId",
-    remoteUpload.fields([
-      { name: "image", maxCount: 1 },
-    ]),
+    remoteUpload.single('image'),
     checkUserSession,
     updateProject
   );
 
-projectRouter.delete('/users/project/:projectId', deleteProject)
+projectRouter.delete('/users/projects/:projectId', deleteProject)
