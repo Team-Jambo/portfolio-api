@@ -140,7 +140,10 @@ export const token = async (req, res, next) => {
           user: {
             firstName: user.firstName,
             lastName: user.lastName,
-            userName: user.userName
+            userName: user.userName,
+            otherNames: user.otherNames,
+            email: user.email,
+
           }
         });
 
@@ -196,7 +199,7 @@ export const getUser = async (req, res, next) => {
 
       .populate({ path: "achievements", options: { sort: { date: -1 } } })
 
-      .populate({ path: "experiences", options })
+      .populate({ path: "Experience", options })
 
       .populate({ path: "volunteering", options })
 
