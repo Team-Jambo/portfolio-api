@@ -32,7 +32,6 @@ export const userProfileSchema = joi.object({
 
 export const educationSchema = joi.object({
 
-
   schoolName: joi.string().required(),
   location: joi.string(),
   program: joi.string().required(),
@@ -44,6 +43,7 @@ export const educationSchema = joi.object({
 })
 
 export const experienceSchema = joi.object({
+
   companyName: joi.string().required(),
   role: joi.string().required(),
   skills: joi.string().required(),

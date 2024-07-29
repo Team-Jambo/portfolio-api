@@ -115,7 +115,7 @@ export const token = async (req, res, next) => {
     const { userName, email, password } = req.body;
     //  Find a user using their email or username
     const user = await User.findOne({
-      $or: [{ email }, { userName }],
+      $or: [{ email: email }, { userName: userName }],
     });
 
     if (!user) {
@@ -129,13 +129,22 @@ export const token = async (req, res, next) => {
       const token = jwt.sign(
         { id: user.id },
         process.env.JWT_PRIVATE_KEY,
-        { expiresIn: "1h" }
+        { expiresIn: "72h" }
       );
 
       //   Return response
       res.status(200).json(
         {
-          message: 'User lodded in, accessToken: token'
+          message: 'User lodded in, accessToken: token',
+
+          user: {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userName: user.userName,
+            otherNames: user.otherNames,
+            email: user.email,
+
+          }
         });
 
 
@@ -190,7 +199,7 @@ export const getUser = async (req, res, next) => {
 
       .populate({ path: "achievements", options: { sort: { date: -1 } } })
 
-      .populate({ path: "experiences", options })
+      .populate({ path: "Experience", options })
 
       .populate({ path: "volunteering", options })
 
