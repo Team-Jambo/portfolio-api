@@ -135,7 +135,8 @@ export const token = async (req, res, next) => {
       //   Return response
       res.status(200).json(
         {
-          message: 'User logged in',
+          message: 'User logged in', 
+          accessToken: token,
 
           user: {
             firstName: user.firstName,
