@@ -1,13 +1,12 @@
 import joi from 'joi';
 
 export const achievementSchema = joi.object({
- 
-        awardType:joi.string().required(),
-        description:joi.string(),
-        image:joi.string(),
-        date:joi.string(),
-        nameOfInstitution:joi.string(),
- 
+        awards: joi.string(),
+        description: joi.string().required(),
+        image: joi.string().optional(),
+        date: joi.string().required(),
+        nameOfInstitution: joi.string().required(),
+        user: joi.string(),
 });
 
 

@@ -1,5 +1,4 @@
 
-
 import { getUser, getUsers,logout, signup, token, updateUser } from "../controllers/user_controller.js";
 import { Router } from "express";
 
