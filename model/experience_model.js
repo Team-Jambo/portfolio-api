@@ -18,7 +18,7 @@ const experienceSchema = new Schema({
         type: Date,
         required: true
     },
-    responsibilies: {
+    responsibilities: {
         type: String,
         required: true
     },

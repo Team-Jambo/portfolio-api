@@ -1,6 +1,6 @@
 
 
-import { getUser, getUsers, login, logout, signup, updateUser } from "../controllers/user_controller.js";
+import { getUser, getUsers,logout, signup, token, updateUser } from "../controllers/user_controller.js";
 import { Router } from "express";
 import { checkUserSession } from "../middlewares/auth.js";
 
@@ -9,9 +9,11 @@ export const userRouter = Router();
 
 userRouter.get("/users", getUsers);
 
-userRouter.post("/users/auth/session/login", login);
 
-userRouter.post("/users/auth/token/login", login);
+//using session
+// userRouter.post("/users/auth/session/login", login);
+
+userRouter.post("/users/auth/token/login", token);
 
 userRouter.post("/users/auth/logout", logout);
 
