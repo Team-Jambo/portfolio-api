@@ -78,34 +78,34 @@ export const signup = async (req, res, next) => {
 
 
 
-export const login = async (req, res, next) => {
-  try {
-    const { userName, email, password } = req.body;
-    //  Find a user using their email or username
-    const user = await User.findOne({
-      $or: [{ email }, { userName }],
-    });
+// export const login = async (req, res, next) => {
+//   try {
+//     const { userName, email, password } = req.body;
+//     //  Find a user using their email or username
+//     const user = await User.findOne({
+//       $or: [{ email }, { userName }],
+//     });
 
-    if (!user) {
-      return res.status(401).json("User does not exist");
-    } else {
-      const correctPass = bcrypt.compare(password, user.password);
-      if (!correctPass) {
-        return res.status(401).json("Invalid login details");
-      }
-      // Generate a session for the user
-      req.session.user = { id: user.id };
+//     if (!user) {
+//       return res.status(401).json("User does not exist");
+//     } else {
+//       const correctPass = bcrypt.compare(password, user.password);
+//       if (!correctPass) {
+//         return res.status(401).json("Invalid login details");
+//       }
+//       // Generate a session for the user
+//       req.session.user = { id: user.id };
 
-      console.log('user', req.session.user)
+//       console.log('user', req.session.user)
 
-      res.status(201).json("Your Login was Successful");
-    }
-    // Return responds
+//       res.status(201).json("Your Login was Successful");
+//     }
+//     // Return responds
 
-  } catch (error) {
-    next(error);
-  }
-};
+//   } catch (error) {
+//     next(error);
+//   }
+// };
 
 
 
@@ -135,7 +135,7 @@ export const token = async (req, res, next) => {
       //   Return response
       res.status(200).json(
         {
-          message: 'User lodded in, accessToken: token',
+          message: 'User logged in',
 
           user: {
             firstName: user.firstName,
