@@ -8,11 +8,11 @@ export const getExperiences = async (req, res, next) => {
     try {
         //we are fetching workExperiences that belongs to a particular user
         const userId = req.params.id
-        const allExperiences = await Experience.find({user: userId})
+        const allExperiences = await Experience.find({user: userId}).populate('experiences');
     // if(allExperiences.length == 0){
     //     return res.status(404).send(allExperiences)
     // }
-    res.status(200).json({workExperience: allExperiences});
+    res.status(200).json({Experience: allExperiences});
     } catch (error) {
         next(error)
     }
@@ -53,11 +53,11 @@ export const addExperience = async (req, res, next) => {
 
 
 
-export const getOneWorkExperience = async (req, res, next) => {
+export const getExperience = async (req, res, next) => {
 
     try {
-        const workExperience = await Experience.findById(req.params.id);
-        res.status(200).json(workExperience);
+        const Experience = await Experience.findById(req.params.id).populate('experiences');
+        res.status(200).json(Experience);
     } catch (error) {
         next(error)
     }
@@ -95,21 +95,22 @@ export const updateExperience = async (req, res, next) => {
 //  controller to delete an experience
 export const deleteExperience = async (req, res, next) => {
     try {
-        const deletedExperience = await Experience.findByIdAndDelete(req.params.experienceId);
-
-        if (!deletedExperience) {
-            return res.status(404).send("experience not found!");
+     
+        const userId = req.session?.user?.id || req?.user.id;
+        const user = await User.findById(userId);
+        if (!user) {
+          return res.status(404).send("User not found");
         }
-
-        // filter out experience from user
-        const user = await User.findById(deletedExperience.user);
-        if (user) {
-            user.experiences = user.experiences.filter(experienceId => experienceId.toString() !== req.params.experienceId);
-            await user.save();
-        }
-
-        res.status(200).json({ experience: deletedExperience });
-    } catch (error) {
-        next(error)
-    }
-};
+    
+        const experience = await Experience.findByIdAndDelete(req.params.id);
+          if (!experience) {
+              return res.status(404).send("experience not found");
+          }
+    
+          user.experiences.pull(req.params.id);
+          await user.save();
+        res.status(200).json("Experience deleted");
+      } catch (error) {
+        return res.status(500).json({error})
+      }
+    };
