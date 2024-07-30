@@ -2,7 +2,7 @@
 
 import { getUser, getUsers,logout, signup, token, updateUser } from "../controllers/user_controller.js";
 import { Router } from "express";
-import { checkUserSession } from "../middlewares/auth.js";
+
 
 
 export const userRouter = Router();
@@ -22,7 +22,7 @@ userRouter.post("/users/auth/signup", signup);
 userRouter.post("/users/auth/updateUser", updateUser);
 
     
-userRouter.get("/users/auth/:userName", checkUserSession, getUser);
+userRouter.get("/users/auth/:userName",  getUser);
 
 
 

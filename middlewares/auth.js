@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 export const checkUserSession = (req, res, next) => {
 
-    // check is session has a user
+    // check if session has a user
     if (req.session.user) {
         next()
     } else if (req.headers.authorization) {
