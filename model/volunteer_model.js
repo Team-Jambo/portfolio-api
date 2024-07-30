@@ -41,5 +41,5 @@ const volunteeringSchema = new Schema({
 
 
 volunteeringSchema.plugin(toJSON);
-export const Volunteering = model('Volunteer', volunteeringSchema);
+export const Volunteering = model('Volunteering', volunteeringSchema);
 

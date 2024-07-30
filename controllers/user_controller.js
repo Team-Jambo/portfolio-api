@@ -1,7 +1,10 @@
+import { userProfile } from "../model/profile_model.js";
+import { Skill } from "../model/skills_model.js";
 import { User } from "../model/user_model.js";
 import { userSchema } from "../schema/user_schema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+import { volunteerRouter } from "../router/volunteer_route.js";
 
 // export const signup = async (req, res, next) => {
 //     try {
@@ -144,6 +147,15 @@ export const token = async (req, res, next) => {
             userName: user.userName,
             otherNames: user.otherNames,
             email: user.email,
+            skill: user.skills,
+            project: user.project,
+            experience: user.experience,
+            achievement: user.achievements,
+            userProfile: user.userProfile,
+            volunteer: user.volunteer,
+            education: user.education
+
+
 
           }
         });
@@ -192,19 +204,30 @@ export const getUser = async (req, res, next) => {
 
       .select("-password")
 
-      .populate({ path: "education", options })
-
+      .populate({
+        path: "education",
+        options,
+      })
       .populate("userProfile")
-
       .populate("skills")
-
-      .populate({ path: "achievements", options: { sort: { date: -1 } } })
-
-      .populate({ path: "Experience", options })
-
-      .populate({ path: "volunteering", options })
-
-      .populate({ path: 'projects', options });
+  
+      .populate({
+        path: "achievements",
+        options: { sort: { date: -1 } }, 
+      })
+      .populate({
+        path: "experiences",
+        options, 
+        strictPopulate: false
+      })
+      .populate({
+        path: "volunteering",
+        options, 
+      })
+      .populate({
+          path: 'projects',
+          options 
+      });
 
     if (!userDetails) {
       return res.status(404).json(userDetails);
