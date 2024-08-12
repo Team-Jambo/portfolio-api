@@ -60,8 +60,12 @@ export const createUserProfile = async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    const profile = await UserProfile.create({ ...value, user: userId });
+    const profile = await userProfile.create({ ...req.body,
+      profilePicture: req.file.filename,
+      resume: req.file.filename });
 
+
+  console.log(error)
     user.userProfile = profile._id;
 
     await user.save();
