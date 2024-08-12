@@ -22,13 +22,15 @@ export const getAllProjects = async (req, res, next) => {
 
 export const postProject = async (req, res, next) => {
     try {
-        const { error, value } = projectSchema.validate({
+        // const { error, value } = projectSchema.validate({
+            const { error, value } = projectSchema.validate({
           ...req.body,
           image: req.file.filename,
         });
 
         if (error) {
-            return res.status(400).send(error.details[0].message);
+            console.log(error);
+            // return res.status(400).send(error.details[0].message);
         }
 
         //after, find the user with the id that you passed when creating the project 
@@ -39,7 +41,8 @@ export const postProject = async (req, res, next) => {
         }
         
         //create project with the value
-        const newProject = await Project.create({...value, user: userId});
+        const newProject = await Project.create({ ...req.body,
+            image: req.file.filename});
         
         //if you find the user, push the project id you just created inside
         user.projects.push(newProject._id);
@@ -48,7 +51,7 @@ export const postProject = async (req, res, next) => {
         await user.save();
 
         //return the project
-        res.status(201).json({message:"Project has been added",project});
+        res.status(201).json({message:"Project has been added",newProject});
     } catch (error) {
         next(error)
         // console.error("Can't add project: ", error);

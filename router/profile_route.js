@@ -16,11 +16,10 @@ userProfileRouter.delete('/userprofile', deleteProfile);
 userProfileRouter.get( "/users/userProfile", checkUserSession, getUserProfile);
 
 
-userProfileRouter.post( '/userProfile', remoteUpload.fields([
+userProfileRouter.post( '/userProfile',checkUserSession, remoteUpload.fields([
       { name: "profilePicture", maxCount: 1 },
       { name: "resume", maxCount: 1 },
     ]),
-    checkUserSession,
     createUserProfile
   );
 
