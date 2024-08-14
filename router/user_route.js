@@ -12,7 +12,7 @@ userRouter.get("/users", getUsers);
 //using session
 // userRouter.post("/users/auth/session/login", login);
 
-userRouter.post("/users/auth/token/login", token);
+userRouter.post("/users/auth/token", token);
 
 userRouter.post("/users/auth/logout", logout);
 

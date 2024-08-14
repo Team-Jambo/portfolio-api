@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUserProfile, deleteProfile, getUserProfile, updateProfile } from "../controllers/profile_controller.js";
+import { postuserProfile, deleteProfile, getUserProfile, updateProfile } from "../controllers/profile_controller.js";
 import { checkUserSession } from "../middlewares/auth.js";
 import { remoteUpload } from "../middlewares/uploads.js";
 
@@ -16,12 +16,12 @@ userProfileRouter.delete('/userprofile', deleteProfile);
 userProfileRouter.get( "/users/userProfile", checkUserSession, getUserProfile);
 
 
-userProfileRouter.post( '/userProfile', remoteUpload.fields([
+userProfileRouter.post( '/users/mzberneece/userProfile', remoteUpload.fields([
       { name: "profilePicture", maxCount: 1 },
       { name: "resume", maxCount: 1 },
     ]),
     checkUserSession,
-    createUserProfile
+    postuserProfile
   );
 
   userProfileRouter.patch(
@@ -35,4 +35,3 @@ userProfileRouter.post( '/userProfile', remoteUpload.fields([
   );
 
 
-export default userProfileRouter;

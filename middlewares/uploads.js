@@ -8,4 +8,4 @@ export  const remoteUpload = multer({
         apiAccessToken: process.env.SAVEFILESORG_API_KEY,
         relativePath: '/uploads/*'
     }),
-});
+})

@@ -115,55 +115,61 @@ export const signup = async (req, res, next) => {
 
 export const token = async (req, res, next) => {
   try {
-    const { userName, email, password } = req.body;
-    //  Find a user using their email or username
-    const user = await User.findOne({
-      $or: [{ email: email }, { userName: userName }],
-    });
+    const { email, password } = req.body;
 
-    if (!user) {
-      return res.status(401).json("User does not exist");
-    } else {
-      const correctPass = bcrypt.compare(password, user.password);
-      if (!correctPass) {
-        return res.status(401).json("Invalid login details");
-      }
-      // Generate a token for the user
-      const token = jwt.sign(
-        { id: user.id },
-        process.env.JWT_PRIVATE_KEY,
-        { expiresIn: "72h" }
-      );
-
-      //   Return response
-      res.status(200).json(
-        {
-          message: 'User logged in', 
-          accessToken: token,
-
-          user: {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            userName: user.userName,
-            otherNames: user.otherNames,
-            email: user.email,
-            skill: user.skills,
-            project: user.project,
-            experience: user.experience,
-            achievement: user.achievements,
-            userProfile: user.userProfile,
-            volunteer: user.volunteer,
-            education: user.education
-
-
-
-          }
-        });
-
-
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({ message: "Email and password are required" });
     }
 
-  } catch (error) {
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Check password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    // Generate a token for the user
+    const token = jwt.sign(
+      { id: user.id },
+      process.env.JWT_PRIVATE_KEY,
+      { expiresIn: "72h" }
+    );
+
+    //   Return response
+    res.status(200).json(
+      {
+        message: 'User logged in',
+        accessToken: token,
+
+        user: {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          userName: user.userName,
+          otherNames: user.otherNames,
+          email: user.email,
+          skill: user.skills,
+          project: user.project,
+          experience: user.experience,
+          achievement: user.achievements,
+          userProfile: user.userProfile,
+          volunteer: user.volunteer,
+          education: user.education
+
+
+
+        }
+      });
+
+
+  }catch (error) {
     next(error);
   }
 };
@@ -210,23 +216,23 @@ export const getUser = async (req, res, next) => {
       })
       .populate("userProfile")
       .populate("skills")
-  
+
       .populate({
         path: "achievements",
-        options: { sort: { date: -1 } }, 
+        options: { sort: { date: -1 } },
       })
       .populate({
         path: "experiences",
-        options, 
+        options,
         strictPopulate: false
       })
       .populate({
         path: "volunteering",
-        options, 
+        options,
       })
       .populate({
-          path: 'projects',
-          options 
+        path: 'projects',
+        options
       });
 
     if (!userDetails) {

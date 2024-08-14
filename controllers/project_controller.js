@@ -48,7 +48,7 @@ export const postProject = async (req, res, next) => {
         await user.save();
 
         //return the project
-        res.status(201).json({message:"Project has been added",project});
+        res.status(201).json({message:"Project has been added", Project});
     } catch (error) {
         next(error)
         // console.error("Can't add project: ", error);

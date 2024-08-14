@@ -8,7 +8,7 @@ const userSchema = new Schema({
     lastName: { type: String },
     otherNames: { type: String },
     email: { type: String, required: true, unique: true, },
-    password: { type: String },
+    password: { type: String, required: true },
     userName: { type: String, unique: true },
     termsAndconditions: { type: String },
     education: [{ type: Types.ObjectId, ref: 'Education' }],

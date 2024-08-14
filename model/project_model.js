@@ -9,7 +9,10 @@ const projectSchema = new Schema ({
     projectName: {type: String},
     description: {type: String},
     contributors: {type: String},
-    date: {type: Date},
+    nameOfInstitution: { type: String },
+    skills: { type: String },
+    startDate: {type: String},
+    endDate: {type: String},
     skills: {type: String}, /* shows the skills demonstrated in this project */
     // add a few more features an accomplished look
     projectUrl: {type: String}, /* this is the link that takes you to the full project */

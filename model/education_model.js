@@ -15,6 +15,8 @@ const educationSchema = new Schema({
 
     location: { type: String },
 
+    qualification: { type: String },
+
     grade: {
         type: String
     },

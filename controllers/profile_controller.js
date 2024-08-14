@@ -40,35 +40,70 @@ import { userProfileSchema } from "../schema/profile_schema.js";
 //     }
 //   };
 
-export const createUserProfile = async (req, res) => {
-  try {
-    const { error, value } = userProfileSchema.validate({
-      ...req.body,
-      profilePicture: req.files?.profilePicture[0].filename,
-      resume: req.files?.resume[0].filename,
-    });
+// export const postuserProfile = async (req, res) => {
+//   try {
+//     const { error, value } = userProfileSchema.validate({
+//       ...req.body,
+//       profilePicture: req.files?.profilePicture[0].filename,
+//       resume: req.files?.resume[0].filename,
+//     });
 
-    if (error) {
-      return res.status(400).send(error.details[0].message);
-    }
+//     if (error) {
+//       return res.status(400).send(error.details[0].message);
+//     }
 
-    const userId = req.session?.user?.id || req?.user.id;
+//     const userId = req.session?.user?.id || req?.user.id;
    
 
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).send("User not found");
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).send("User not found");
+//     }
+
+//     const profile = await userProfile.create({ ...value, user: userId });
+
+//     user.userProfile = profile._id;
+
+//     await user.save();
+
+//     res.status(201).json({ profile });
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+export const postuserProfile = async (req, res, next) => {
+  try {
+    const { error, value } = userProfileSchema.validate(req.body, { abortEarly: false });
+
+    if (error) {
+      return res.status(400).json({ error: error.details.map(d => d.message) });
     }
 
-    const profile = await UserProfile.create({ ...value, user: userId });
+    // If languages is a string, split it into an array
+    if (typeof value.languages === 'string') {
+      value.languages = value.languages.split(',').map(lang => lang.trim());
+    }
 
-    user.userProfile = profile._id;
+    const userSessionId = req.session?.user?.id || req?.user?.id;
+    const user = await User.findById(userSessionId);
 
+    if (!user) {
+      return res.status(404).send('User not found');
+    }
+
+    const profile = await userProfile.create({
+      ...value,
+      user: userSessionId
+    });
+
+    user.profile = profile._id;
     await user.save();
 
-    res.status(201).json({ profile });
+    res.status(201).json({ message: "Profile has been created", profile });
   } catch (error) {
-    console.log(error);
+    console.error('Error in postuserProfile:', error);
+    next(error);
   }
 };
 

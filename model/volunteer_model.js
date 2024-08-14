@@ -12,7 +12,7 @@ const volunteeringSchema = new Schema({
         type: String
     },
 
-    skill: {
+    skills: {
         type: String
     },
 

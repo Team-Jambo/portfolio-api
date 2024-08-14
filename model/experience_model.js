@@ -10,6 +10,11 @@ const experienceSchema = new Schema({
         type: String,
         default: null
     },
+
+    skills: {
+        type: String
+    },
+    
     startDate: {
         type: Date,
         required: true

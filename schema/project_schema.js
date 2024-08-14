@@ -7,7 +7,7 @@ export const projectSchema = joi.object({
         description: joi.string().required(),
         contributors: joi.string(),
         skills: joi.string().required(),
-        link: joi.string().required(),
+        projectUrl: joi.string().required(),
         nameOfInstitution: joi.string(),
         startDate: joi.string().required(),
         endDate: joi.string(),
