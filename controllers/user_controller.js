@@ -1,10 +1,9 @@
-import { userProfile } from "../model/profile_model.js";
-import { Skill } from "../model/skills_model.js";
+
 import { User } from "../model/user_model.js";
 import { userSchema } from "../schema/user_schema.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
-import { volunteerRouter } from "../router/volunteer_route.js";
+
 
 // export const signup = async (req, res, next) => {
 //     try {
@@ -156,11 +155,11 @@ export const token = async (req, res, next) => {
           otherNames: user.otherNames,
           email: user.email,
           skill: user.skills,
-          project: user.project,
+          project: user.projects,
           experience: user.experience,
           achievement: user.achievements,
           userProfile: user.userProfile,
-          volunteer: user.volunteer,
+          volunteer: user.volunteering,
           education: user.education
 
 
@@ -222,7 +221,7 @@ export const getUser = async (req, res, next) => {
         options: { sort: { date: -1 } },
       })
       .populate({
-        path: "experiences",
+        path: "experience",
         options,
         strictPopulate: false
       })

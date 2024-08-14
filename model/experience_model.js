@@ -6,27 +6,11 @@ import { toJSON } from "@reis/mongoose-to-json";
 const experienceSchema = new Schema({
     position: { type: String, required: true },
     company: { type: String, required: true },
-    location: {
-        type: String,
-        default: null
-    },
-
-    skills: {
-        type: String
-    },
-    
-    startDate: {
-        type: Date,
-        required: true
-    },
-    endDate: {
-        type: Date,
-        required: true
-    },
-    responsibilities: {
-        type: String,
-        required: true
-    },
+    location: {type: String, default: null},
+    skills: {type: String},
+    startDate: {type: Date, required: true},
+    endDate: {type: Date, required: true},
+    responsibilities: {type: String, required: true},
     user: { type: Types.ObjectId, ref: 'User' }
 });
 

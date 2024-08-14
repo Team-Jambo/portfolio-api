@@ -21,7 +21,7 @@ userProfileRouter.post( '/userProfile',checkUserSession, remoteUpload.fields([
       { name: "resume", maxCount: 1 },
     ]),
     checkUserSession,
-    createUserProfile
+    postuserProfile
   );
 
   userProfileRouter.patch(
